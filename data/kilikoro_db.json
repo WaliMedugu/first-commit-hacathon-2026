@@ -1,0 +1,268 @@
+{
+  "users": [
+    {
+      "id": "d15ec5e7-1cd4-4fe1-ac3e-a5d4b70a120a",
+      "name": "Wali Medugu",
+      "email": "blueparticlestudios@gmail.com",
+      "role": "organization",
+      "hasStudentProfile": true,
+      "hasEmployerProfile": true,
+      "studentCredentials": {
+        "university": "Nile University of Nigeria",
+        "nacosId": "242120036",
+        "github": "https://github.com/WaliMedugu"
+      },
+      "employerCredentials": {
+        "company": "Beacora\\Dollara",
+        "regNumber": "Beacora\\Dollara",
+        "department": "gkjv;vvk;k",
+        "location": "Nigeria / Remote"
+      },
+      "university": "Nile University of Nigeria",
+      "nacosId": "242120036",
+      "github": "https://github.com/WaliMedugu",
+      "company": "Beacora\\Dollara",
+      "walletAddress": "0x5815d72b",
+      "cardNumber": "5399 8830 4317 7140",
+      "cardCvv": "857",
+      "balanceUsdc": 6.25,
+      "bmoniConnected": true,
+      "bmoniPhone": "+2349061950587",
+      "bmoniTag": "walimedugu.bmoni",
+      "createdAt": "2026-09-29T06:25:21.321Z",
+      "hasOrganizationProfile": true,
+      "organizationCredentials": {
+        "company": "Beacora\\Dollara",
+        "regNumber": "Beacora\\Dollara",
+        "department": "gkjv;vvk;k",
+        "location": "Nigeria / Remote"
+      },
+      "employerBonusCredited": true
+    },
+    {
+      "id": "25a43675-563e-4f16-bb44-12f284949a84",
+      "name": "Tunde Oladipo",
+      "email": "test_pers_1790671231106@example.com",
+      "role": "organization",
+      "hasPersonalProfile": true,
+      "hasOrganizationProfile": true,
+      "hasStudentProfile": true,
+      "hasEmployerProfile": true,
+      "personalCredentials": {
+        "university": "UNILAG",
+        "nacosId": "UNILAG-CS-2026-9999",
+        "github": "tunde-dev"
+      },
+      "organizationCredentials": {
+        "company": "Apex Labs Ltd",
+        "regNumber": "RC-998877",
+        "department": "Engineering",
+        "location": "Nigeria / Remote"
+      },
+      "studentCredentials": {
+        "university": "UNILAG",
+        "nacosId": "UNILAG-CS-2026-9999",
+        "github": "tunde-dev"
+      },
+      "employerCredentials": {
+        "company": "Apex Labs Ltd",
+        "regNumber": "RC-998877",
+        "department": "Engineering",
+        "location": "Nigeria / Remote"
+      },
+      "university": "UNILAG",
+      "nacosId": "UNILAG-CS-2026-9999",
+      "github": "tunde-dev",
+      "company": "Apex Labs Ltd",
+      "walletAddress": "0x64c5bffb",
+      "cardNumber": "5399 1041 9286 1476",
+      "cardCvv": "914",
+      "balanceUsdc": 6.25,
+      "bmoniConnected": false,
+      "bmoniPhone": null,
+      "bmoniTag": "tundeoladipo.bmoni",
+      "createdAt": "2026-09-29T08:40:31.112Z",
+      "employerBonusCredited": true
+    },
+    {
+      "id": "44601f16-b6d5-44c0-aca9-21387ed99a64",
+      "name": "ihsirhhpf ihafeiphfaehpe",
+      "email": "w4t4qt4@gmail.com",
+      "role": "organization",
+      "hasPersonalProfile": true,
+      "hasOrganizationProfile": true,
+      "hasStudentProfile": true,
+      "hasEmployerProfile": true,
+      "personalCredentials": {
+        "university": "q4tq4t",
+        "nacosId": "qt4qt4",
+        "github": "qt4tq4"
+      },
+      "organizationCredentials": {
+        "company": "4wgqaw",
+        "regNumber": "RC-193891",
+        "department": "Engineering & Operations",
+        "location": "Nigeria / Remote"
+      },
+      "studentCredentials": {
+        "university": "q4tq4t",
+        "nacosId": "qt4qt4",
+        "github": "qt4tq4"
+      },
+      "employerCredentials": {
+        "company": "4wgqaw",
+        "regNumber": "RC-193891",
+        "department": "Engineering & Operations",
+        "location": "Nigeria / Remote"
+      },
+      "university": "q4tq4t",
+      "nacosId": "qt4qt4",
+      "github": "qt4tq4",
+      "company": "4wgqaw",
+      "walletAddress": "0x5cf3fb84",
+      "cardNumber": "5399 7558 2115 7246",
+      "cardCvv": "676",
+      "balanceUsdc": 4.2,
+      "bmoniConnected": true,
+      "bmoniPhone": "9061950587.bmoni",
+      "bmoniTag": "9061950587.bmoni",
+      "createdAt": "2026-09-29T20:41:56.418Z",
+      "employerBonusCredited": true
+    }
+  ],
+  "contracts": [
+    {
+      "id": "CT-PRIV-4203",
+      "type": "private",
+      "sponsor": "ihsirhhpf ihafeiphfaehpe",
+      "sponsorEmail": "w4t4qt4@gmail.com",
+      "avatar": "I",
+      "avatarColor": "var(--accent-terracotta)",
+      "title": "ethht",
+      "desc": "wrhwrhwrhrwhr",
+      "amount": 2,
+      "tags": [
+        "Private Hire",
+        "Escrow Locked"
+      ],
+      "status": "Escrow Locked",
+      "studentId": "24210036",
+      "bmoniEscrowId": "ESCROW-654789",
+      "bmoniTxHash": "0xbmoni_f23e97de074e",
+      "createdAt": "2026-09-29T20:44:14.796Z"
+    }
+  ],
+  "audits": [
+    {
+      "repo": "https://github.com/WaliMedugu/BuildX-Crown-Chasers",
+      "score": 94,
+      "securityStatus": "Clean - Zero Secrets Exposed",
+      "productionReadiness": "Production Ready",
+      "errorHandlingRating": "Robust (Try/Catch & Bounded Complexity)",
+      "summary": "Repository 'https://github.com/WaliMedugu/BuildX-Crown-Chasers' demonstrates clean architecture, zero hardcoded secrets, and solid input validation for production workloads.",
+      "strengths": [
+        "Environment variable hygiene (No exposed API keys in Git)",
+        "Clear error handling and input null-checks",
+        "Deterministic memory allocation"
+      ],
+      "hygieneFlags": [
+        "Add continuous integration workflow for automated test runs"
+      ],
+      "recommendation": "Hire",
+      "verifiedClaims": [],
+      "unverifiedClaims": [],
+      "id": "e04a64b5-7389-4418-9641-c1b15fdb07b1",
+      "createdAt": "2026-09-29T20:38:30.523Z"
+    }
+  ],
+  "settlements": [
+    {
+      "id": "6f90d020-b477-4351-a54d-9cb6a1f7aa1e",
+      "transactionHash": "0xbmoni_grant_562522",
+      "attestationId": "NACOS-SPONSOR-GRANT-10K",
+      "settledAmountUSDC": 6.25,
+      "status": "Welcome Bonus Credited",
+      "timestamp": "2026-09-29T20:42:42.522Z",
+      "recipient": "w4t4qt4@gmail.com"
+    },
+    {
+      "id": "207bdcac-2e55-4d52-a28c-f0cc0ecaca09",
+      "transactionHash": "0xbmoni_grant_550352",
+      "attestationId": "NACOS-SPONSOR-GRANT-10K",
+      "settledAmountUSDC": 6.25,
+      "status": "Welcome Bonus Credited",
+      "timestamp": "2026-09-29T17:39:10.352Z",
+      "recipient": "blueparticlestudios@gmail.com"
+    },
+    {
+      "id": "3cac0641-3ff9-4f68-8d5b-1855bba91029",
+      "transactionHash": "0xbmoni_grant_233355",
+      "attestationId": "NACOS-SPONSOR-GRANT-10K",
+      "settledAmountUSDC": 6.25,
+      "status": "Welcome Bonus Credited",
+      "timestamp": "2026-09-29T08:40:33.355Z",
+      "recipient": "test_pers_1790671231106@example.com"
+    },
+    {
+      "transactionHash": "0xbmoni_144f0d0a6826",
+      "attestationId": "OFFRAMP-NGN-7890",
+      "settledAmountUSDC": -8095808870,
+      "status": "Bank Settled",
+      "timestamp": "2026-09-29T06:45:30.300Z",
+      "id": "cc145882-e913-4813-8b8a-048b50d3d4ed"
+    }
+  ],
+  "certificates": [
+    {
+      "id": "NACOS-CERT-2026-1EE4D9A7",
+      "candidateName": "Audited Candidate",
+      "nacosId": "NACOS-VERIFIED-MEMBER",
+      "repoUrl": "https://github.com/WaliMedugu/BuildX-Crown-Chasers",
+      "score": 94,
+      "securityStatus": "Clean - Zero Secrets Exposed",
+      "errorHandlingRating": "Robust Guards",
+      "complexity": "O(N log N) Scalability",
+      "sha256Hash": "SHA256: 1ee4d9a7e69504aca215c9a0",
+      "fullHash": "1ee4d9a7e69504aca215c9a0bb9e16309c4ae53424647bb25157c1ec6e13bdf3",
+      "engineModel": "Kilikoro Neural Oracle + AST Engine",
+      "issuedAt": "2026-09-29T20:53:53.338Z",
+      "verified": true,
+      "verificationUrl": "https://kilikoro.vercel.app/?cert=NACOS-CERT-2026-1EE4D9A7",
+      "badgeUrl": "https://kilikoro.vercel.app/api/badge/NACOS-CERT-2026-1EE4D9A7"
+    },
+    {
+      "id": "NACOS-CERT-2026-4FABCBFB",
+      "candidateName": "Wali Medugu",
+      "nacosId": "NACOS-VERIFIED-MEMBER",
+      "repoUrl": "https://github.com/WaliMedugu/kilikoro-core",
+      "score": 98,
+      "securityStatus": "Clean - Zero Secrets Exposed",
+      "errorHandlingRating": "Robust Guards",
+      "complexity": "O(N log N) Scalability",
+      "sha256Hash": "SHA256: 4fabcbfb367170c5e954729b",
+      "fullHash": "4fabcbfb367170c5e954729bffc9a558abdbaf33f352eb126cd5b7cd26f004d4",
+      "engineModel": "Kilikoro Neural Oracle + AST Engine",
+      "issuedAt": "2026-09-29T16:05:15.446Z",
+      "verified": true,
+      "verificationUrl": "https://kilikoro.vercel.app/?cert=NACOS-CERT-2026-4FABCBFB",
+      "badgeUrl": "https://kilikoro.vercel.app/api/badge/NACOS-CERT-2026-4FABCBFB"
+    },
+    {
+      "id": "NACOS-CERT-2026-10F660F2",
+      "candidateName": "Wali Medugu",
+      "nacosId": "NACOS-VERIFIED-MEMBER",
+      "repoUrl": "https://github.com/WaliMedugu/kilikoro-core",
+      "score": 98,
+      "securityStatus": "Clean - Zero Secrets Exposed",
+      "errorHandlingRating": "Robust Guards",
+      "complexity": "O(N log N) Scalability",
+      "sha256Hash": "SHA256: 10f660f2eaea55af85a2e70f",
+      "fullHash": "10f660f2eaea55af85a2e70f11a744eba569591fc3d388607dfbc1dd9ded87de",
+      "engineModel": "Kilikoro Neural Oracle + AST Engine",
+      "issuedAt": "2026-09-29T16:02:52.668Z",
+      "verified": true,
+      "verificationUrl": "https://kilikoro.vercel.app/?cert=NACOS-CERT-2026-10F660F2",
+      "badgeUrl": "https://kilikoro.vercel.app/api/badge/NACOS-CERT-2026-10F660F2"
+    }
+  ]
+}
