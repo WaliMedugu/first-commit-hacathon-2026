@@ -1,0 +1,37 @@
+{
+  "name": "kilikoro",
+  "version": "1.0.0",
+  "description": "Deterministic Proof-of-Competence Engine and BMONI Stablecoin Milestone Escrow for African Computing Students",
+  "main": "kilikoro.js",
+  "bin": {
+    "kilikoro": "kilikoro.js"
+  },
+  "files": [
+    "kilikoro.js",
+    "js/ast-engine.js",
+    "js/bmoni-client.js",
+    "js/claude-service.js",
+    "js/escrow-simulator.js",
+    "js/supabase-client.js",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "node scripts/build-vercel.js",
+    "start": "node server.js",
+    "cli": "node kilikoro.js"
+  },
+  "keywords": [
+    "kilikoro",
+    "nacos",
+    "walimedugu",
+    "bmoni",
+    "ast-sandbox",
+    "stablecoin-escrow",
+    "fintech"
+  ],
+  "author": "Team Wali Medugu",
+  "license": "MIT",
+  "dependencies": {
+    "pdf-parse": "^2.4.5"
+  }
+}
