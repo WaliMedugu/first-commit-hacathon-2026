@@ -1,0 +1,1713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kilikoro — Developer Verification & BANK Milestone Escrow</title>
+  <link rel="stylesheet" href="css/claude-theme.css">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+</head>
+<body>
+
+  <div class="saas-layout">
+
+    <!-- ========================================================================= -->
+    <!-- LEFT SIDEBAR NAVIGATION (Linear / GitHub Style)                           -->
+    <!-- ========================================================================= -->
+    <aside class="sidebar">
+      <div class="sidebar-top">
+        <!-- Brand -->
+        <a href="#" class="sidebar-brand" onclick="app.switchView('view-home')" style="display: flex; align-items: center; gap: 0.6rem;">
+          <img src="assets/kilikoro-logo-terracotta.png" alt="Kilikoro Logo" style="height: 32px; width: auto; object-fit: contain; filter: drop-shadow(0 2px 8px rgba(217, 119, 87, 0.3));">
+          <span class="brand-title">Kilikoro</span>
+          <span class="brand-tag">Wali Medugu</span>
+        </a>
+
+        <!-- Main Nav List -->
+        <nav class="sidebar-nav">
+          <span class="nav-section-title">Overview</span>
+
+          <a class="nav-item active" data-view="view-home" id="navItemHome" onclick="app.switchView('view-home')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+            <span>Home</span>
+          </a>
+
+          <span class="nav-section-title" style="margin-top: 1rem;">Hiring & Verification</span>
+
+          <a class="nav-item" data-view="view-verifier" id="navItemVerifier" onclick="app.switchView('view-verifier')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <span>Candidate Verifier</span>
+          </a>
+
+          <a class="nav-item" data-view="view-contracts" id="navItemContracts" onclick="app.switchView('view-contracts')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+            <span>Contracts & Escrows</span>
+            <span class="nav-counter" id="contractCountBadge">0</span>
+          </a>
+
+          <span class="nav-section-title" style="margin-top: 1rem;">Developer Hub</span>
+
+          <a class="nav-item" data-view="view-workspace" id="navItemWorkspace" onclick="app.switchView('view-workspace')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+            <span>Active Milestone</span>
+          </a>
+
+          <a class="nav-item" data-view="view-wallet" id="navItemWallet" onclick="app.switchView('view-wallet')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>
+            <span>BANK Wallet & Cards</span>
+          </a>
+
+          <a class="nav-item" data-view="view-students" id="navItemStudents" onclick="app.switchView('view-students')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+            <span>Verified Members</span>
+          </a>
+        </nav>
+      </div>
+
+      <!-- User Profile Badge -->
+      <div class="sidebar-bottom">
+        <div class="user-profile-badge" id="userProfileBadge" onclick="app.handleAuthClick()" title="Click to view/edit your profile" style="cursor: pointer;">
+          <div class="user-avatar" id="sidebarAvatar">WM</div>
+          <div class="user-info">
+            <span class="user-name" id="sidebarUserName">Wali Medugu</span>
+            <span class="user-sub" id="sidebarUserSub">UNILAG CS '26 • Kilikoro Node</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ========================================================================= -->
+    <!-- MAIN CONTENT VIEWPORT                                                     -->
+    <!-- ========================================================================= -->
+    <div class="main-viewport">
+
+      <!-- Top Header Bar -->
+      <header class="top-header">
+        <div class="breadcrumbs" id="breadcrumbTrail">
+          <a href="#" onclick="app.switchView('view-home')">Kilikoro</a>
+          <span class="separator">/</span>
+          <span class="current" id="breadcrumbCurrent">Overview Dashboard</span>
+        </div>
+
+        <div class="header-actions">
+          <button class="btn btn-secondary" id="btnRoleSwitcher" onclick="app.toggleRole()" style="font-size: 0.78rem; display: inline-flex; align-items: center; gap: 0.4rem;" title="Switch between Personal and Organization views">
+            <span class="status-dot" style="background: var(--accent-terracotta);"></span>
+            <span id="headerRoleLabel">Role: Personal</span>
+            <span style="opacity: 0.65; font-size: 0.72rem; text-decoration: none;">⇄ Switch</span>
+          </button>
+          <button class="btn btn-secondary" id="btnUserAuth" onclick="app.handleAuthClick()" style="font-size: 0.82rem;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            <span id="headerAuthLabel">Sign In / Register</span>
+          </button>
+          <button class="btn btn-secondary" id="btnCliToken">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 17l6-6-6-6M12 19h8"></path></svg>
+            <span>CLI Token</span>
+          </button>
+          <button class="btn btn-primary" onclick="app.openNewContractModal()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            <span>New Contract</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Scrollable Page Views -->
+      <main class="page-content">
+
+        <!-- ===================================================================== -->
+        <!-- VIEW 0: OVERVIEW DASHBOARD (HOME SCREEN)                              -->
+        <!-- ===================================================================== -->
+        <section class="app-view active" id="view-home">
+          <!-- Welcome Pitch Banner / Hero -->
+          <div class="submission-card" style="margin-bottom: 1.5rem; background: linear-gradient(135deg, rgba(217,119,87,0.08) 0%, rgba(255,255,255,0.01) 100%); border: 1.5px solid var(--border-medium); padding: 1.75rem;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1.5rem; flex-wrap: wrap;">
+              <div style="flex: 1; min-width: 280px;">
+                <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                  <span class="status-badge" style="background: var(--accent-terracotta-subtle); color: var(--accent-terracotta); font-weight: 600;">
+                    Wali Medugu • 2026
+                  </span>
+                  <span style="font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-mono);">KILIKORO PROTOCOL v2.4</span>
+                </div>
+                <h1 class="headline-large" style="font-size: 2.1rem; margin-bottom: 0.5rem;" id="homeGreetingTitle">
+                  Autonomous Code Proof & Escrow Rails
+                </h1>
+                <p class="subheadline" style="max-width: 650px; margin-bottom: 1.25rem;">
+                  Cross-verify developer competence directly against GitHub source code, AST security trees, and settle milestone escrows with automated Nigerian bank and BANK card rails.
+                </p>
+                <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                  <button class="btn btn-primary" onclick="app.switchView('view-verifier')">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <span>Audit Candidate Code</span>
+                  </button>
+                  <button class="btn btn-secondary" onclick="app.openNewContractModal()">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                    <span>Create Milestone Escrow</span>
+                  </button>
+                  <button class="btn btn-secondary" onclick="app.openWelcomePitchModal()">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                    <span>Project Pitch & Team</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Quick Metrics Widget -->
+              <div style="background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: 10px; padding: 1.25rem; min-width: 260px; box-shadow: var(--shadow-sm);">
+                <div style="font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.35rem;">
+                  Available Liquidity
+                </div>
+                <div style="font-family: var(--font-editorial); font-size: 1.8rem; color: var(--text-primary); font-weight: 700;" id="homeBalanceUsdc">
+                  $0.00 USDC
+                </div>
+                <div style="font-size: 0.82rem; color: var(--status-emerald); font-weight: 600; margin-top: 0.2rem;" id="homeBalanceNgn">
+                  ≈ ₦0.00 cNGN
+                </div>
+                <div style="margin-top: 0.85rem; padding-top: 0.85rem; border-top: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center; font-size: 0.78rem;">
+                  <span style="color: var(--text-muted);">Virtual Card:</span>
+                  <span style="font-family: var(--font-mono); color: var(--accent-terracotta);" id="homeCardNumber">5399 •••• 4892</span>
+                </div>
+                <div style="display: flex; gap: 0.5rem; margin-top: 0.75rem;">
+                  <button class="btn btn-primary" onclick="app.openDepositModal()" style="flex: 1; justify-content: center; font-size: 0.78rem; padding: 0.45rem;">
+                    + Fund (BANK)
+                  </button>
+                  <button class="btn btn-secondary" onclick="app.switchView('view-wallet')" style="flex: 1; justify-content: center; font-size: 0.78rem; padding: 0.45rem;">
+                    Wallet & Cards →
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Action Tiles (4-Grid) -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+            <div class="submission-card" onclick="app.switchView('view-verifier')" style="cursor: pointer; padding: 1.2rem; transition: transform 0.15s ease, border-color 0.15s ease;" onmouseenter="this.style.borderColor='var(--accent-terracotta)'" onmouseleave="this.style.borderColor='var(--border-subtle)'">
+              <div style="width: 36px; height: 36px; border-radius: 8px; background: var(--accent-terracotta-subtle); display: flex; align-items: center; justify-content: center; color: var(--accent-terracotta); margin-bottom: 0.75rem;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+              </div>
+              <h3 style="font-size: 0.95rem; font-weight: 600; margin-bottom: 0.25rem;">Candidate Auditor</h3>
+              <p style="font-size: 0.78rem; color: var(--text-muted); line-height: 1.4;">Scan public GitHub repositories with deep research checks and secret audits.</p>
+            </div>
+
+            <div class="submission-card" onclick="app.switchView('view-contracts')" style="cursor: pointer; padding: 1.2rem; transition: transform 0.15s ease, border-color 0.15s ease;" onmouseenter="this.style.borderColor='var(--status-emerald)'" onmouseleave="this.style.borderColor='var(--border-subtle)'">
+              <div style="width: 36px; height: 36px; border-radius: 8px; background: var(--status-emerald-subtle); display: flex; align-items: center; justify-content: center; color: var(--status-emerald); margin-bottom: 0.75rem;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+              </div>
+              <h3 style="font-size: 0.95rem; font-weight: 600; margin-bottom: 0.25rem;">Milestone Escrows</h3>
+              <p style="font-size: 0.78rem; color: var(--text-muted); line-height: 1.4;">Browse active student bounties and employer contracts locked in escrow.</p>
+            </div>
+
+            <div class="submission-card" onclick="app.switchView('view-wallet')" style="cursor: pointer; padding: 1.2rem; transition: transform 0.15s ease, border-color 0.15s ease;" onmouseenter="this.style.borderColor='var(--accent-gold)'" onmouseleave="this.style.borderColor='var(--border-subtle)'">
+              <div style="width: 36px; height: 36px; border-radius: 8px; background: rgba(212,163,115,0.15); display: flex; align-items: center; justify-content: center; color: #b47d3c; margin-bottom: 0.75rem;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>
+              </div>
+              <h3 style="font-size: 0.95rem; font-weight: 600; margin-bottom: 0.25rem;">BANK Payouts</h3>
+              <p style="font-size: 0.78rem; color: var(--text-muted); line-height: 1.4;">Instant settlement to any Nigerian bank (NUBAN) or spend with virtual card.</p>
+            </div>
+
+            <div class="submission-card" onclick="app.switchView('view-students')" style="cursor: pointer; padding: 1.2rem; transition: transform 0.15s ease, border-color 0.15s ease;" onmouseenter="this.style.borderColor='var(--accent-terracotta)'" onmouseleave="this.style.borderColor='var(--border-subtle)'">
+              <div style="width: 36px; height: 36px; border-radius: 8px; background: var(--accent-terracotta-subtle); display: flex; align-items: center; justify-content: center; color: var(--accent-terracotta); margin-bottom: 0.75rem;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
+              </div>
+              <h3 style="font-size: 0.95rem; font-weight: 600; margin-bottom: 0.25rem;">Verified Talent Directory</h3>
+              <p style="font-size: 0.78rem; color: var(--text-muted); line-height: 1.4;">Direct-hire accredited student engineers verified by the Kilikoro engine.</p>
+            </div>
+          </div>
+
+          <!-- Live Activity & Contracts Snapshot -->
+          <div class="submission-card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; border-bottom: 1px solid var(--border-subtle); padding-bottom: 0.75rem;">
+              <div>
+                <h3 style="font-size: 1.05rem; font-weight: 600; margin: 0;">Recent Contract Bounties & Escrows</h3>
+                <span style="font-size: 0.78rem; color: var(--text-muted);">Active escrow bounties ready for candidate application</span>
+              </div>
+              <button class="btn btn-secondary" onclick="app.switchView('view-contracts')" style="font-size: 0.78rem;">View All →</button>
+            </div>
+            <div id="homeRecentContractsList" style="display: flex; flex-direction: column; gap: 0.75rem;">
+              <!-- Dynamic Home contracts list rendered by app.js -->
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================================================================== -->
+        <!-- VIEW 1: CANDIDATE VERIFIER (CODE QUALITY & SECURITY AUDITOR)          -->
+        <!-- ===================================================================== -->
+        <section class="app-view" id="view-verifier">
+          <div class="marketplace-header">
+            <h1 class="headline-large">Candidate Code Quality & Security Auditor</h1>
+            <p class="subheadline">
+              Audit developer GitHub repositories for production readiness: scan for exposed API keys, verify robust error handling, and cross-reference resume claims with deep research checks.
+            </p>
+          </div>
+
+          <!-- Auditor Input Form -->
+          <div class="submission-card" style="margin-bottom: 1.5rem;">
+            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 1rem;">
+              <div>
+                <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.35rem;">GitHub Repository URL <span style="color: var(--status-ruby);">*</span></label>
+                <input type="url" id="verifierRepoUrl" maxlength="150" placeholder="https://github.com/username/repository" required style="width: 100%; background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 0.65rem 0.85rem; color: var(--text-primary); font-size: 0.9rem;">
+                <span style="font-size: 0.7rem; color: var(--text-muted); display: block; margin-top: 0.25rem;">Must be a valid public GitHub URL (e.g. https://github.com/user/repo)</span>
+              </div>
+              <div>
+                <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.35rem;">Candidate / Kilikoro ID (Optional)</label>
+                <input type="text" id="verifierNacosId" maxlength="30" placeholder="e.g. UNILAG-CS-2026-0482" style="width: 100%; background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 0.65rem 0.85rem; color: var(--text-primary); font-size: 0.9rem;">
+                <span style="font-size: 0.7rem; color: var(--text-muted); display: block; margin-top: 0.25rem;">Student matric or member identifier</span>
+              </div>
+            </div>
+
+            <!-- Resume / Claims Input: 3 Methods (Upload, Link, Paste) -->
+            <div style="margin-top: 1.25rem; border-top: 1px solid var(--border-subtle); padding-top: 1rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.5rem;">
+                <label style="font-size: 0.82rem; font-weight: 600; color: var(--text-primary);">Resume & Project Claims Verification</label>
+                <span style="font-size: 0.72rem; color: var(--text-muted);">Deep Research Cross-Verification Engine</span>
+              </div>
+
+              <!-- 3-Method Tabs -->
+              <div style="display: flex; gap: 0.5rem; margin-bottom: 0.75rem;">
+                <button type="button" class="filter-pill active" id="tabResumeUpload" onclick="app.setResumeInputMethod('upload')" style="font-size: 0.78rem; padding: 0.35rem 0.75rem;">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                  <span>Upload File (PDF / DOCX)</span>
+                </button>
+                <button type="button" class="filter-pill" id="tabResumeLink" onclick="app.setResumeInputMethod('link')" style="font-size: 0.78rem; padding: 0.35rem 0.75rem;">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+                  <span>URL / Portfolio Link</span>
+                </button>
+                <button type="button" class="filter-pill" id="tabResumeText" onclick="app.setResumeInputMethod('text')" style="font-size: 0.78rem; padding: 0.35rem 0.75rem;">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="6" x2="20" y2="6"></line><line x1="4" y1="12" x2="20" y2="12"></line><line x1="4" y1="18" x2="14" y2="18"></line></svg>
+                  <span>Paste Text Claims</span>
+                </button>
+              </div>
+
+              <!-- Method 1: File Upload -->
+              <div id="resumeMethodUpload" style="display: block;">
+                <div style="border: 1.5px dashed var(--border-medium); border-radius: 8px; padding: 1.25rem; text-align: center; background: var(--bg-secondary); cursor: pointer;" onclick="document.getElementById('verifierResumeFile').click()">
+                  <input type="file" id="verifierResumeFile" accept=".pdf,.doc,.docx,.txt" style="display: none;" onchange="app.handleResumeFileUpload(this)">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="color: var(--accent-terracotta); margin-bottom: 0.5rem;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="15" x2="12" y2="12"></line><line x1="15" y1="15" x2="12" y2="12"></line></svg>
+                  <div style="font-size: 0.85rem; font-weight: 500; color: var(--text-primary);" id="resumeUploadStatusText">
+                    Drop candidate CV or click to browse
+                  </div>
+                  <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.25rem;">
+                    Supports PDF, DOCX, TXT (Auto-extracts claims, achievements, and tech stack)
+                  </div>
+                </div>
+              </div>
+
+              <!-- Method 2: Link -->
+              <div id="resumeMethodLink" style="display: none;">
+                <input type="url" id="verifierResumeLink" placeholder="https://linkedin.com/in/... or https://portfolio.site or Google Drive PDF link" style="width: 100%; background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 0.65rem 0.85rem; color: var(--text-primary); font-size: 0.88rem;">
+                <span style="font-size: 0.7rem; color: var(--text-muted); display: block; margin-top: 0.25rem;">Enter public link to resume, portfolio, or LinkedIn profile</span>
+              </div>
+
+              <!-- Method 3: Text Input -->
+              <div id="resumeMethodText" style="display: none;">
+                <textarea id="verifierResumeText" rows="3" maxlength="5000" placeholder="Paste candidate resume text or project claims here to fact-check against real code..." style="width: 100%; background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 0.65rem 0.85rem; color: var(--text-primary); font-size: 0.85rem; font-family: var(--font-sans); resize: vertical;"></textarea>
+                <span style="font-size: 0.72rem; color: var(--text-muted); display: block; margin-top: 0.2rem;" id="resumeCharCount">Max 5,000 chars</span>
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; margin-top: 1.25rem;">
+              <button class="btn btn-primary" id="btnRunAudit" onclick="app.runAudit()" style="padding: 0.65rem 1.5rem;">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                <span>Run Production Audit</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Deep Research Animated Pipeline Monitor (Gemini Deep Research Style) -->
+          <div class="submission-card" id="auditDeepResearchCard" style="display: none; margin-bottom: 1.5rem; background: var(--bg-secondary); border: 1.5px solid var(--accent-terracotta);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.85rem;">
+              <div style="display: flex; align-items: center; gap: 0.6rem;">
+                <span class="status-dot" style="background: var(--status-emerald); animation: pulse 1.2s infinite;"></span>
+                <span style="font-size: 0.88rem; font-weight: 600; color: var(--text-primary); font-family: var(--font-editorial);">
+                  Kilikoro Deep Research & Code Intelligence Active
+                </span>
+              </div>
+              <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent-terracotta);" id="deepResearchStageTag">
+                PHASE 1 / 4
+              </span>
+            </div>
+
+            <p style="font-size: 0.84rem; color: var(--text-secondary); margin-bottom: 1rem;" id="deepResearchStatusMsg">
+              Initializing autonomous AST static analysis and source dependency inspection...
+            </p>
+
+            <!-- Animated Sources & Sites Visited Grid -->
+            <div style="font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem;">
+              Live Sources Queried & Cross-Checked:
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 0.6rem;" id="deepResearchSourcesGrid">
+              <div class="stat-box" style="padding: 0.65rem 0.85rem; display: flex; align-items: center; gap: 0.6rem;" id="sourceGithub">
+                <span style="font-size: 1.1rem;">🐙</span>
+                <div>
+                  <div style="font-size: 0.78rem; font-weight: 600; color: var(--text-primary);">GitHub AST Engine</div>
+                  <div style="font-size: 0.68rem; color: var(--text-muted);" id="sourceGithubStatus">Fetching commits & tree...</div>
+                </div>
+              </div>
+              <div class="stat-box" style="padding: 0.65rem 0.85rem; display: flex; align-items: center; gap: 0.6rem;" id="sourceNpm">
+                <span style="font-size: 1.1rem;">📦</span>
+                <div>
+                  <div style="font-size: 0.78rem; font-weight: 600; color: var(--text-primary);">NPM Dependency Audit</div>
+                  <div style="font-size: 0.68rem; color: var(--text-muted);" id="sourceNpmStatus">Scanning vulnerabilities...</div>
+                </div>
+              </div>
+              <div class="stat-box" style="padding: 0.65rem 0.85rem; display: flex; align-items: center; gap: 0.6rem;" id="sourceCve">
+                <span style="font-size: 1.1rem;">🛡️</span>
+                <div>
+                  <div style="font-size: 0.78rem; font-weight: 600; color: var(--text-primary);">National CVE Database</div>
+                  <div style="font-size: 0.68rem; color: var(--text-muted);" id="sourceCveStatus">Auditing secret leaks...</div>
+                </div>
+              </div>
+              <div class="stat-box" style="padding: 0.65rem 0.85rem; display: flex; align-items: center; gap: 0.6rem;" id="sourceClaims">
+                <span style="font-size: 1.1rem;">🔍</span>
+                <div>
+                  <div style="font-size: 0.78rem; font-weight: 600; color: var(--text-primary);">Resume Cross-Check</div>
+                  <div style="font-size: 0.68rem; color: var(--text-muted);" id="sourceClaimsStatus">Matching code claims...</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Empty State (Shown before scan) -->
+          <div class="empty-state-card" id="auditEmptyCard">
+            <div class="empty-state-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            </div>
+            <h3 class="empty-state-title">Ready to Audit Candidate Codebase</h3>
+            <p class="empty-state-desc">
+              Enter any public GitHub repository URL above to inspect architecture, scan for exposed API keys, and issue an official Kilikoro Verification Certificate.
+            </p>
+          </div>
+
+          <!-- Audit Results Card (Displayed after live scan) -->
+          <div class="submission-card" id="auditResultCard" style="display: none;">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-subtle); padding-bottom: 1rem; margin-bottom: 1.25rem;">
+              <div>
+                <span class="tag" style="color: var(--status-emerald);">Verified by Kilikoro Engine</span>
+                <h2 style="font-family: var(--font-editorial); font-size: 1.5rem; margin-top: 0.35rem;" id="auditResultTitle">Technical & Security Audit</h2>
+                <span style="font-size: 0.8rem; color: var(--text-muted);" id="auditResultRepo">Repository: </span>
+              </div>
+              <div style="display: flex; gap: 0.75rem; align-items: center;">
+                <span class="status-badge" style="background: var(--status-emerald-subtle); color: var(--status-emerald); font-size: 0.95rem; padding: 0.4rem 0.85rem;" id="auditVerdictBadge">
+                  Recommendation: Hire
+                </span>
+                <button class="btn btn-emerald" id="btnIssueCert" onclick="app.openCertificateModal()" style="font-size: 0.85rem;">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                  <span>Issue Kilikoro Certificate</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- 4 Metrics Row -->
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.25rem;">
+              <div class="stat-box">
+                <span class="stat-label">Production Quality</span>
+                <span class="stat-val" style="color: var(--status-emerald);" id="auditScoreVal">--</span>
+                <span style="font-size: 0.72rem; color: var(--text-muted);" id="auditQualityDesc">Architecture Score</span>
+              </div>
+              <div class="stat-box">
+                <span class="stat-label">Security & Secrets</span>
+                <span class="stat-val" style="color: var(--status-emerald);" id="auditAiRiskVal">--</span>
+                <span style="font-size: 0.72rem; color: var(--text-muted);">Git Commit Audit</span>
+              </div>
+              <div class="stat-box">
+                <span class="stat-label">Error Resilience</span>
+                <span class="stat-val" style="color: var(--text-primary);" id="auditComplexityVal">--</span>
+                <span style="font-size: 0.72rem; color: var(--text-muted);">Try/Catch & Bounds</span>
+              </div>
+              <div class="stat-box">
+                <span class="stat-label">Kilikoro Member Status</span>
+                <span class="stat-val" style="color: var(--accent-terracotta);" id="auditNacosVal">--</span>
+                <span style="font-size: 0.72rem; color: var(--text-muted);">Chapter Verification</span>
+              </div>
+            </div>
+
+            <!-- Analysis Summary & Points -->
+            <div style="background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 1.25rem; margin-bottom: 1rem;">
+              <span style="font-weight: 600; color: var(--text-primary); display: block; margin-bottom: 0.5rem;">Audit Findings:</span>
+              <p style="color: var(--text-secondary); font-size: 0.88rem; line-height: 1.6;" id="auditSummaryText">
+                Awaiting audit results.
+              </p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <div style="background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 1rem;">
+                <span style="font-size: 0.75rem; color: var(--status-emerald); font-weight: 600; text-transform: uppercase;">Verified Strengths</span>
+                <ul style="list-style: none; margin-top: 0.5rem; font-size: 0.85rem; color: var(--text-secondary); display: flex; flex-direction: column; gap: 0.35rem;" id="auditStrengthsList">
+                </ul>
+              </div>
+
+              <div style="background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 1rem;">
+                <span style="font-size: 0.75rem; color: var(--status-amber); font-weight: 600; text-transform: uppercase;">Hygiene Notes</span>
+                <ul style="list-style: none; margin-top: 0.5rem; font-size: 0.85rem; color: var(--text-secondary); display: flex; flex-direction: column; gap: 0.35rem;" id="auditFlagsList">
+                </ul>
+              </div>
+            </div>
+
+            <!-- Resume Claims Fact-Checking Container -->
+            <div id="auditResumeClaimsContainer" style="display: none; background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 1rem 1.25rem; margin-top: 1rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.65rem;">
+                <span style="font-size: 0.82rem; font-weight: 600; text-transform: uppercase; color: var(--text-primary); letter-spacing: 0.05em;">
+                  Resume Claims Fact-Check (Truthful Candidate Verification)
+                </span>
+                <span class="status-badge" style="background: var(--status-emerald-subtle); color: var(--status-emerald); font-size: 0.75rem;">
+                  Codebase Cross-Referenced
+                </span>
+              </div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div>
+                  <span style="font-size: 0.75rem; color: var(--status-emerald); font-weight: 600; text-transform: uppercase;">Verified Claims (Evidenced in Code)</span>
+                  <ul style="list-style: none; margin-top: 0.5rem; font-size: 0.82rem; color: var(--text-secondary); display: flex; flex-direction: column; gap: 0.35rem;" id="auditVerifiedClaimsList">
+                  </ul>
+                </div>
+                <div>
+                  <span style="font-size: 0.75rem; color: var(--status-amber); font-weight: 600; text-transform: uppercase;">Unverified Claims (Missing Code Evidence)</span>
+                  <ul style="list-style: none; margin-top: 0.5rem; font-size: 0.82rem; color: var(--text-secondary); display: flex; flex-direction: column; gap: 0.35rem;" id="auditUnverifiedClaimsList">
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recruiter & Job Poster Widget: Apply with Kilikoro -->
+          <div class="submission-card" style="margin-top: 1.5rem; border: 1px dashed var(--accent-terracotta);">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap;">
+              <div style="flex: 1; min-width: 280px;">
+                <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.35rem;">
+                  <span class="status-dot" style="background: var(--accent-terracotta);"></span>
+                  <h3 style="font-family: var(--font-editorial); font-size: 1.25rem; margin: 0;">For Tech Recruiters: "Apply with Kilikoro"</h3>
+                </div>
+                <p style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.5; margin: 0 0 0.75rem 0;">
+                  Eliminate fake resumes and unverified code submissions. Embed this widget button in your job postings or ATS (Lever, Greenhouse, Workable) so applicants must submit a pre-audited GitHub repository.
+                </p>
+                <div style="display: flex; gap: 0.5rem; align-items: center;">
+                  <input type="text" id="recruiterEmbedSnippet" readonly style="flex: 1; background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 0.5rem 0.75rem; color: var(--text-secondary); font-family: var(--font-mono); font-size: 0.75rem;" value='<a href="https://kilikoro.vercel.app/?apply=1" target="_blank" style="background:#0f766e;color:#fff;padding:8px 16px;border-radius:6px;text-decoration:none;font-weight:600;font-family:sans-serif;">Apply with Kilikoro (Verified Code)</a>'>
+                  <button class="btn btn-secondary" onclick="app.copyRecruiterSnippet()" style="font-size: 0.78rem; white-space: nowrap; padding: 0.5rem 0.85rem;">
+                    Copy Widget HTML
+                  </button>
+                </div>
+              </div>
+              <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 1rem; min-width: 220px; text-align: center;">
+                <span style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.5rem;">Button Preview</span>
+                <a href="javascript:void(0)" style="background: #0f766e; color: #fff; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: 600; font-family: sans-serif; font-size: 0.82rem; display: inline-flex; align-items: center; gap: 0.4rem; pointer-events: none;">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                  Apply with Kilikoro
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================================================================== -->
+        <!-- VIEW 2: CONTRACTS & ESCROWS (PUBLIC & PRIVATE)                        -->
+        <!-- ===================================================================== -->
+        <section class="app-view" id="view-contracts">
+          <div class="marketplace-header">
+            <h1 class="headline-large">Contracts & Milestone Escrows</h1>
+            <p class="subheadline">
+              Direct private 1-on-1 contracts and open public bounties secured by BANK stablecoin escrows with 3-second payouts.
+            </p>
+          </div>
+
+          <!-- Segmented Tab Switcher (Public vs Private) -->
+          <div class="filter-toolbar">
+            <div style="display: flex; gap: 0.5rem; background: var(--bg-secondary); padding: 0.3rem; border-radius: 8px; border: 1px solid var(--border-subtle);">
+              <button class="filter-pill active" id="tabPublicContracts" onclick="app.setContractType('public')">
+                Public Bounties (<span id="pubCount">0</span>)
+              </button>
+              <button class="filter-pill" id="tabPrivateContracts" onclick="app.setContractType('private')">
+                Private Direct Contracts (<span id="privCount">0</span>)
+              </button>
+            </div>
+
+            <div class="search-box">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+              <input type="text" id="contractSearchInput" placeholder="Filter contracts...">
+            </div>
+          </div>
+
+          <!-- Contract Cards Grid -->
+          <div class="bounty-grid" id="contractListGrid">
+            <!-- Cards rendered dynamically by app.js -->
+          </div>
+        </section>
+
+        <!-- ===================================================================== -->
+        <!-- VIEW 3: ACTIVE MILESTONE WORKSPACE & SUBMISSION                       -->
+        <!-- ===================================================================== -->
+        <section class="app-view" id="view-workspace">
+          <!-- Empty State (No milestone selected) -->
+          <div class="empty-state-card" id="wsEmptyState" style="padding: 4rem 1.5rem; text-align: center;">
+            <div class="empty-state-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+            </div>
+            <h3 class="empty-state-title">No Milestone Selected</h3>
+            <p class="empty-state-desc" style="max-width: 480px; margin: 0.5rem auto 1.5rem auto;">
+              Select an active contract from the Contracts & Escrows page to review the technical specification, test cases, and submit verified code.
+            </p>
+            <button class="btn btn-primary" onclick="app.switchView('view-contracts')">View Active Contracts</button>
+          </div>
+
+          <div class="workspace-container" id="wsContent" style="display: none;">
+
+            <!-- Milestone Header -->
+            <div class="milestone-banner">
+              <div style="flex: 1;">
+                <div style="display: flex; gap: 0.5rem; align-items: center; margin-bottom: 0.75rem;">
+                  <span class="brand-pill" id="wsTaskId">TASK-BANK-104</span>
+                  <span class="tag" id="wsCategory">Algorithms & FinTech</span>
+                </div>
+                <h1 class="headline-large" style="font-size: 2rem;" id="wsTitle">High-Throughput Cache Expiry Resolver</h1>
+                <p class="subheadline" style="margin-top: 0.5rem;" id="wsSponsor">
+                  Sponsor: <b>Kilikoro Labs</b> • Escrow Model: <b>Automated Milestone Release</b>
+                </p>
+              </div>
+
+              <div class="milestone-meta-box">
+                <div class="meta-row">
+                  <span class="meta-label">Bounty Escrow</span>
+                  <span class="meta-val" style="color: var(--accent-terracotta); font-size: 1.1rem;" id="wsAmount">$150.00 USDC</span>
+                </div>
+                <div class="meta-row">
+                  <span class="meta-label">Naira Payout</span>
+                  <span class="meta-val" id="wsNaira">≈ ₦240,000 cNGN</span>
+                </div>
+                <div class="meta-row">
+                  <span class="meta-label">Complexity Limit</span>
+                  <span class="meta-val">O(N log N)</span>
+                </div>
+                <div class="meta-row">
+                  <span class="meta-label">Escrow Status</span>
+                  <span class="meta-val" style="color: var(--status-emerald);">Vault Locked ✓</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Contract Deliverables Spec -->
+            <div class="submission-card">
+              <h2 style="font-family: var(--font-editorial); font-size: 1.4rem;">Requirements & Specifications</h2>
+              <p style="color: var(--text-secondary); line-height: 1.6;" id="wsDescription">
+                High-frequency payment systems face microsecond cache bottlenecks when thousands of transaction auth tokens expire concurrently. You must implement the function <code>cacheResolver(entries, threshold)</code> to filter out expired items and return remaining entries sorted by priority.
+              </p>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem;">
+                <div style="background: var(--bg-secondary); padding: 1rem; border-radius: 8px; border: 1px solid var(--border-subtle);">
+                  <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Sample Input:</span>
+                  <pre style="font-family: var(--font-mono); font-size: 0.8rem; margin-top: 0.5rem; color: var(--accent-terracotta);">entries = [{ id: 10, ttl: 40 }, { id: 2, ttl: 15 }, { id: 8, ttl: 25 }]
+threshold = 20</pre>
+                </div>
+
+                <div style="background: var(--bg-secondary); padding: 1rem; border-radius: 8px; border: 1px solid var(--border-subtle);">
+                  <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Expected Output:</span>
+                  <pre style="font-family: var(--font-mono); font-size: 0.8rem; margin-top: 0.5rem; color: var(--status-emerald);">[{ id: 8, ttl: 25 }, { id: 10, ttl: 40 }]</pre>
+                </div>
+              </div>
+            </div>
+
+            <!-- Code Submission & Checklist -->
+            <div class="submission-card">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                <h2 style="font-family: var(--font-editorial); font-size: 1.4rem;">Submit Code Implementation</h2>
+                <div style="display: flex; gap: 0.5rem;">
+                  <button class="btn btn-secondary" id="btnPresetHuman" style="font-size: 0.78rem;">Load Authentic Code</button>
+                  <button class="btn btn-secondary" id="btnPresetAi" style="font-size: 0.78rem; color: var(--status-ruby);">Load AI Trap Code</button>
+                </div>
+              </div>
+
+              <!-- Code Box -->
+              <textarea class="code-box-editor" id="solutionInput" spellcheck="false"></textarea>
+
+              <!-- 4-Step Verification Checklist -->
+              <div class="verification-progress-card">
+                <span class="panel-title">Automated Verification & Payout Pipeline</span>
+                <div class="check-item" id="checkSyntax">
+                  <span class="check-icon">1</span>
+                  <span>Syntax & AST Parse Tree Validation</span>
+                </div>
+                <div class="check-item" id="checkEntropy">
+                  <span class="check-icon">2</span>
+                  <span>Anti-AI Boilerplate Entropy & Plagiarism Scan</span>
+                </div>
+                <div class="check-item" id="checkComplexity">
+                  <span class="check-icon">3</span>
+                  <span>Input Scaling & Asymptotic Big-O Verification (N=10..5,000)</span>
+                </div>
+                <div class="check-item" id="checkEscrow">
+                  <span class="check-icon">4</span>
+                  <span>BANK Oracle Cryptographic Settlement Trigger</span>
+                </div>
+              </div>
+
+              <div style="display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 0.75rem;">
+                <button class="btn btn-secondary" onclick="app.switchView('view-contracts')">Back to Contracts</button>
+                <button class="btn btn-emerald" id="btnRunVerification" style="padding: 0.65rem 1.5rem; font-size: 0.95rem;">
+                  Verify & Release Payout
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- ===================================================================== -->
+        <!-- VIEW 4: BANK WALLET & VIRTUAL CARDS                                  -->
+        <!-- ===================================================================== -->
+        <section class="app-view" id="view-wallet">
+          <div class="wallet-grid">
+
+            <!-- Left: BANK Liquid Balance Pocket Card & Transactions -->
+            <div>
+              <!-- EXACT BANK LIQUID BALANCE POCKET CARD (IMAGE 2) -->
+              <div class="bmoni-liquid-card-frame">
+                <!-- Top Brand Header -->
+                <div class="bmoni-frame-top">
+                  <span class="bmoni-brand-logo-txt">BANK</span>
+                </div>
+
+                <!-- Realistic Nigerian ₦1000 Banknotes Fanned from Pocket -->
+                <div class="bmoni-naira-layer">
+                  <div class="bmoni-naira-bill-stack">
+                    <div class="bmoni-naira-bill">
+                      <span class="naira-bill-title">BANK OF NIGERIA</span>
+                      <span class="naira-bill-denom">1000</span>
+                    </div>
+                    <div class="bmoni-naira-bill">
+                      <span class="naira-bill-title">BANK OF NIGERIA</span>
+                      <span class="naira-bill-denom">1000</span>
+                    </div>
+                    <div class="bmoni-naira-bill">
+                      <span class="naira-bill-title">BANK OF NIGERIA</span>
+                      <span class="naira-bill-denom">1000</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Stitched Magenta Leather Pocket Sleeve -->
+                <div class="bmoni-pocket-sleeve">
+                  <!-- Pocket Rivets -->
+                  <div class="pocket-rivet left"></div>
+                  <div class="pocket-rivet right"></div>
+
+                  <!-- Dynamic Balance Row with Eye Privacy Toggle -->
+                  <div class="bmoni-balance-header-row">
+                    <div class="bmoni-liquid-amount-val" id="bmoniLiquidNaira">₦10,000.00</div>
+                    <button class="bmoni-eye-toggle-btn" id="btnToggleBalanceEye" onclick="app.toggleBalancePrivacy()" title="Toggle Balance Privacy">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="eyeIconSvg">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                        <circle cx="12" cy="12" r="3"></circle>
+                      </svg>
+                    </button>
+                  </div>
+
+                  <!-- 9PSB Bank & Virtual Account Details -->
+                  <div class="bmoni-bank-details-block">
+                    <div class="bmoni-bank-name-label">9 Payment Service Bank</div>
+                    <div class="bmoni-acct-number-row">
+                      <span id="bmoniLiquidAcct">6176775063</span>
+                      <button class="bmoni-copy-icon-btn" onclick="app.copyBmoniAccountNumber()" title="Copy Account Number">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Pocket Footer: Nigerian Flag & Info Badge -->
+                  <div class="bmoni-pocket-footer-row">
+                    <div class="bmoni-flag-pill" title="Nigerian NGN Commercial Settlement Rails">
+                      <span class="flag-g"></span>
+                      <span class="flag-w"></span>
+                      <span class="flag-g"></span>
+                    </div>
+
+                    <div class="bmoni-info-pill-badge" onclick="app.showBmoniRailInfo()" title="View BANK NIP Banking Rail Info">
+                      <span>Info</span>
+                      <span class="info-circle-glyph">i</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Quick Action Buttons Below Pocket -->
+                <div style="display: flex; gap: 0.5rem; margin-top: 1.15rem; flex-wrap: wrap;">
+                  <button class="btn btn-primary" onclick="app.openDepositModal()" style="font-size: 0.8rem; flex: 1; justify-content: center;">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                    Deposit (BANK)
+                  </button>
+                  <button class="btn btn-secondary" onclick="app.openBankWithdrawalModal()" style="font-size: 0.8rem; flex: 1; justify-content: center;">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                    Withdraw (NGN)
+                  </button>
+                  <button class="btn btn-secondary" onclick="app.openNewContractModal()" style="font-size: 0.8rem; flex: 1; justify-content: center;">
+                    + Lock Escrow
+                  </button>
+                </div>
+              </div>
+
+              <!-- Transactions Table -->
+              <div class="transaction-section">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <h2 style="font-family: var(--font-editorial); font-size: 1.5rem;">Recent Financial Activity</h2>
+                  <button class="btn btn-secondary" onclick="app.exportTransactionsStatement()" style="font-size: 0.78rem;">Export Statement</button>
+                </div>
+
+                <div class="table-card" id="txTableCard">
+                  <table class="data-table" id="txDataTable">
+                    <thead>
+                      <tr>
+                        <th>Transaction ID</th>
+                        <th>Description</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th style="text-align: right;">Amount</th>
+                      </tr>
+                    </thead>
+                    <tbody id="txTableBody">
+                      <!-- Rendered dynamically by app.renderTransactions() -->
+                    </tbody>
+                  </table>
+                  <div class="empty-state-card" id="txEmptyState" style="padding: 2.5rem 1rem; border: none; display: none;">
+                    <div class="empty-state-icon">
+                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+                    </div>
+                    <h3 class="empty-state-title">No Transactions Yet</h3>
+                    <p class="empty-state-desc">Milestone payouts and BANK settlements will appear here in real-time once verified.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right: Exact BANK Virtual Mastercard (Image 1) -->
+            <div class="card-preview-column">
+              <span class="panel-title">BANK Virtual Mastercard</span>
+
+              <div class="virtual-card-box">
+                <div class="interactive-card" id="walletVirtualCard">
+                  <!-- Front (Exact Image 1 Replication — Clean face, only watermark + MC circles + BANK) -->
+                  <div class="card-face front">
+                    <!-- Mastercard Top-Right Overlapping Circles (amber on top, red below) -->
+                    <div class="card-mc-top-right">
+                      <div class="mc-circles-pair">
+                        <div class="mc-circle-amber"></div>
+                        <div class="mc-circle-red"></div>
+                      </div>
+                    </div>
+
+                    <!-- BANK Bottom-Right Vertical Brand -->
+                    <div class="card-bmoni-bottom-right">
+                      <div class="bmoni-vertical-brand-text">BANK</div>
+                    </div>
+                  </div>
+
+                  <!-- Back (CVV, Card Number, Cardholder & Magstripe) -->
+                  <div class="card-face back">
+                    <div class="card-magstripe-bar"></div>
+                    <div style="font-size: 0.72rem; color: rgba(255,255,255,0.7); text-align: right; margin-bottom: 0.35rem; font-weight: 600;">CVV SECURITY CODE</div>
+                    <div class="card-cvv-white-strip" id="walletCardCvv">834</div>
+                    <div style="font-family: var(--font-mono); font-size: 0.92rem; color: rgba(255,255,255,0.85); letter-spacing: 0.12em; margin-top: 0.65rem; font-weight: 600;" id="walletCardNumber">5399 •••• •••• 4892</div>
+                    <div style="font-family: 'Montserrat', var(--font-sans); font-size: 0.82rem; color: rgba(255,255,255,0.75); letter-spacing: 0.08em; text-transform: uppercase; font-weight: 700;" id="walletCardHolderName">WALI MEDUGU</div>
+                    <div style="font-size: 0.72rem; color: rgba(255,255,255,0.5); margin-top: 0.75rem; line-height: 1.4;">
+                      BANK Embedded Mastercard. Valid for POS terminals, web transactions, and instant 3s stablecoin settlement.
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 0.5rem;">
+                <button class="btn btn-secondary" id="btnFlipWalletCard" style="flex: 1; justify-content: center;">
+                  Flip to Reveal CVV
+                </button>
+                <button class="btn btn-secondary" id="btnFreezeWalletCard" style="flex: 1; justify-content: center;">
+                  Freeze Card
+                </button>
+              </div>
+
+              <div style="background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 1.25rem; font-size: 0.82rem; color: var(--text-secondary); line-height: 1.5;">
+                <span style="font-weight: 600; color: var(--text-primary); display: block; margin-bottom: 0.25rem;">Direct Card Payouts</span>
+                Funds released from verified milestones settle directly into this BANK Mastercard in &lt;3 seconds, ready for instant spending across Nigeria.
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- ===================================================================== -->
+        <!-- VIEW 5: VERIFIED STUDENTS DIRECTORY (NACOS CHAPTERS)                  -->
+        <!-- ===================================================================== -->
+        <section class="app-view" id="view-students">
+          <div class="marketplace-header">
+            <h1 class="headline-large">Verified Members & Talents</h1>
+            <p class="subheadline">
+              Computing members and talents across Nigerian university chapters and tech ecosystems with cryptographically verified skills and authentic GitHub repos.
+            </p>
+          </div>
+
+          <div class="bounty-grid" id="studentListGrid">
+            <!-- Dynamically populated from registered profiles in database by app.renderStudents() -->
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: CREATE CONTRACT (PUBLIC OR PRIVATE)                                -->
+  <!-- ========================================================================= -->
+  <div class="modal-overlay" id="contractModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 999; align-items: center; justify-content: center;">
+    <div style="background: var(--bg-primary); border: 1px solid var(--border-medium); border-radius: 12px; width: 100%; max-width: 520px; padding: 1.75rem; box-shadow: var(--shadow-lg);">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+        <h2 style="font-family: var(--font-editorial); font-size: 1.5rem;">Create Milestone Contract</h2>
+        <button onclick="app.closeNewContractModal()" style="background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 1.25rem;">✕</button>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 1rem;">
+        <div>
+          <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.35rem;">Contract Visibility</label>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+            <button class="filter-pill active" id="modalBtnPrivate" onclick="app.setModalVisibility('private')" style="justify-content: center;">
+              Private Direct Hire
+            </button>
+            <button class="filter-pill" id="modalBtnPublic" onclick="app.setModalVisibility('public')" style="justify-content: center;">
+              Public Bounty
+            </button>
+          </div>
+        </div>
+
+        <div id="modalRecipientGroup">
+          <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.35rem;">Assigned Personal Member ID <span style="color: var(--accent-terracotta);">*</span></label>
+          <input type="text" id="modalStudentId" maxlength="30" placeholder="e.g. UNILAG-CS-2026-0482 or PERS-9821" style="width: 100%; background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 0.6rem; color: var(--text-primary); font-size: 0.88rem;">
+          <span style="font-size: 0.7rem; color: var(--text-muted); display: block; margin-top: 0.25rem;">Required for private 1-on-1 contracts (4-30 chars)</span>
+        </div>
+
+        <div>
+          <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.35rem;">Contract Title / Deliverable <span style="color: var(--status-ruby);">*</span></label>
+          <input type="text" id="modalContractTitle" maxlength="120" minlength="5" required placeholder="e.g. Build payment webhook deduplicator" style="width: 100%; background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 0.6rem; color: var(--text-primary); font-size: 0.88rem;">
+          <span style="font-size: 0.7rem; color: var(--text-muted); display: block; margin-top: 0.25rem;">5 - 120 characters</span>
+        </div>
+
+        <div>
+          <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.35rem;">Deliverable Scope & Instructions (Optional)</label>
+          <textarea id="modalContractDesc" maxlength="1000" rows="2" placeholder="Describe the technical requirements, test cases, and delivery expectations..." style="width: 100%; background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 0.6rem; color: var(--text-primary); font-size: 0.85rem; font-family: var(--font-sans); resize: vertical;"></textarea>
+          <span style="font-size: 0.7rem; color: var(--text-muted); display: block; margin-top: 0.25rem;">Max 1,000 characters</span>
+        </div>
+
+        <div>
+          <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.35rem;">Reward Amount (USDC) <span style="color: var(--status-ruby);">*</span></label>
+          <input type="number" id="modalContractAmount" min="1" max="50000" step="0.5" required placeholder="e.g. 5 (Min $1 - Max $50,000)" style="width: 100%; background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 0.6rem; color: var(--text-primary); font-size: 0.88rem;">
+          <span style="font-size: 0.7rem; color: var(--text-muted); display: block; margin-top: 0.25rem;">Numeric value between $1 and $50,000 USDC (funded from your BANK balance)</span>
+        </div>
+
+        <div style="background: var(--bg-secondary); padding: 0.85rem; border-radius: 8px; border: 1px solid var(--border-subtle); font-size: 0.82rem;">
+          <div style="display: flex; justify-content: space-between;">
+            <span style="color: var(--text-muted);">Payout Amount:</span>
+            <span style="font-family: var(--font-mono); font-weight: 600;" id="modalPrincipal">$0.00</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-top: 0.25rem;">
+            <span style="color: var(--text-muted);">Protocol Fee (2.5%):</span>
+            <span style="font-family: var(--font-mono); font-weight: 600;" id="modalFee">$0.00</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-top: 0.4rem; border-top: 1px solid var(--border-subtle); padding-top: 0.4rem;">
+            <span style="font-weight: 600; color: var(--text-primary);">Total Escrow Deposit:</span>
+            <span style="font-family: var(--font-mono); font-weight: 700; color: var(--accent-terracotta);" id="modalTotal">$0.00 USDC</span>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 0.5rem; margin-top: 0.5rem;">
+          <button class="btn btn-secondary" onclick="app.closeNewContractModal()">Cancel</button>
+          <button class="btn btn-primary" id="btnSubmitContract" onclick="app.submitNewContract()">Deposit & Lock Escrow</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: AUTHENTICATION (SIGN IN & REGISTER)                                -->
+  <!-- ========================================================================= -->
+  <div class="modal-overlay" id="onboardingModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.78); z-index: 1000; align-items: center; justify-content: center; padding: 1rem;">
+    <div style="background: var(--bg-primary); border: 1px solid var(--border-medium); border-radius: 12px; width: 100%; max-width: 520px; max-height: 90vh; overflow-y: auto; padding: 1.75rem; box-shadow: var(--shadow-lg);">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+        <div>
+          <h2 style="font-family: var(--font-editorial); font-size: 1.5rem;" id="authModalTitle">Account Access</h2>
+          <span style="font-size: 0.8rem; color: var(--text-muted);" id="authModalSubtitle">Sign in or register to manage contracts and BANK payouts</span>
+        </div>
+        <button onclick="app.closeOnboardingModal()" style="background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 1.25rem;">✕</button>
+      </div>
+
+      <!-- Segmented Auth Mode Switcher -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-bottom: 1.25rem;">
+        <button class="filter-pill active" id="authTabSignIn" onclick="app.setAuthMode('signin')" style="justify-content: center;">
+          Sign In
+        </button>
+        <button class="filter-pill" id="authTabSignUp" onclick="app.setAuthMode('signup')" style="justify-content: center;">
+          Create Account
+        </button>
+      </div>
+
+      <!-- Form 1: Sign In -->
+      <div id="authSignInSection" style="display: flex; flex-direction: column; gap: 1rem;">
+        <div>
+          <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.35rem;">Email Address or Kilikoro ID <span style="color: var(--status-ruby);">*</span></label>
+          <input type="text" id="loginIdentifier" maxlength="100" minlength="3" required placeholder="e.g. candidate@domain.com or UNILAG-CS-2026-0482" style="width: 100%; background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 0.65rem; color: var(--text-primary); font-size: 0.88rem;">
+        </div>
+
+        <div>
+          <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.35rem;">Password <span style="color: var(--status-ruby);">*</span></label>
+          <input type="password" id="loginPassword" minlength="6" maxlength="64" required placeholder="••••••••••••" style="width: 100%; background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 0.65rem; color: var(--text-primary); font-size: 0.88rem;">
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 0.5rem; margin-top: 0.5rem;">
+          <button class="btn btn-secondary" onclick="app.closeOnboardingModal()">Cancel</button>
+          <button class="btn btn-primary" id="btnSubmitSignIn" onclick="app.submitSignIn()">Sign In</button>
+        </div>
+
+        <!-- SSO with NACOS Divider -->
+        <div style="display: flex; align-items: center; gap: 0.75rem; margin: 0.5rem 0;">
+          <div style="flex: 1; height: 1px; background: var(--border-subtle);"></div>
+          <span style="font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase;">or</span>
+          <div style="flex: 1; height: 1px; background: var(--border-subtle);"></div>
+        </div>
+
+        <button type="button" class="btn btn-secondary" onclick="app.signInWithNacos()" style="width: 100%; justify-content: center; gap: 0.5rem; font-size: 0.85rem; padding: 0.65rem;">
+          <div style="width: 20px; height: 20px; border-radius: 50%; background: var(--accent-terracotta); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.7rem;">N</div>
+          <span>Sign In / Sign Up with Kilikoro ID</span>
+        </button>
+      </div>
+
+      <!-- Form 2: Sign Up (Register) -->
+      <div id="authSignUpSection" style="display: none; flex-direction: column; gap: 1rem;">
+        <div>
+          <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.35rem;">Account Type</label>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+            <button class="filter-pill active" id="onboardRoleStudent" onclick="app.setOnboardingRole('personal')" style="justify-content: center;">
+              Personal
+            </button>
+            <button class="filter-pill" id="onboardRoleEmployer" onclick="app.setOnboardingRole('organization')" style="justify-content: center;">
+              Organization
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.35rem;">Full Legal Name <span style="color: var(--status-ruby);">*</span></label>
+          <input type="text" id="onboardName" minlength="2" maxlength="100" required placeholder="e.g. Adewale Adeleke" style="width: 100%; background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 0.6rem; color: var(--text-primary); font-size: 0.88rem;">
+        </div>
+
+        <div>
+          <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.35rem;">Email Address <span style="color: var(--status-ruby);">*</span></label>
+          <input type="email" id="onboardEmail" maxlength="100" required placeholder="e.g. adewale@domain.com" style="width: 100%; background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 0.6rem; color: var(--text-primary); font-size: 0.88rem;">
+        </div>
+
+        <div>
+          <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.35rem;">Password <span style="color: var(--status-ruby);">*</span> (min 6 characters)</label>
+          <input type="password" id="onboardPassword" minlength="6" maxlength="64" required placeholder="Create password (min 6 characters)" style="width: 100%; background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 0.6rem; color: var(--text-primary); font-size: 0.88rem;">
+        </div>
+
+        <!-- Personal Specific Fields -->
+        <div id="onboardStudentFields">
+          <div style="margin-bottom: 0.85rem;">
+            <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.35rem;">Institution / University / Chapter <span style="color: var(--status-ruby);">*</span></label>
+            <input type="text" id="onboardUniv" minlength="2" maxlength="100" required placeholder="e.g. University of Lagos (UNILAG) or Independent" style="width: 100%; background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 0.6rem; color: var(--text-primary); font-size: 0.88rem;">
+          </div>
+
+          <div style="margin-bottom: 0.85rem;">
+            <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.35rem;">Personal Member ID / Matric Number <span style="color: var(--status-ruby);">*</span></label>
+            <input type="text" id="onboardNacosId" minlength="3" maxlength="40" required placeholder="e.g. UNILAG-CS-2026-0482 or PERS-9821" style="width: 100%; background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 0.6rem; color: var(--text-primary); font-size: 0.88rem;">
+          </div>
+
+          <div>
+            <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.35rem;">GitHub Username / Profile URL (Optional)</label>
+            <input type="text" id="onboardGithub" maxlength="100" placeholder="e.g. adewale-dev" style="width: 100%; background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 0.6rem; color: var(--text-primary); font-size: 0.88rem;">
+          </div>
+        </div>
+
+        <!-- Organization Specific Fields -->
+        <div id="onboardEmployerFields" style="display: none;">
+          <div style="margin-bottom: 0.85rem;">
+            <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.35rem;">Company / Organization Name <span style="color: var(--status-ruby);">*</span></label>
+            <input type="text" id="onboardCompany" minlength="2" maxlength="100" placeholder="e.g. Paystack Labs, Helix AI" style="width: 100%; background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 0.6rem; color: var(--text-primary); font-size: 0.88rem;">
+          </div>
+
+          <div style="margin-bottom: 0.85rem;">
+            <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.35rem;">Business Registration / RC Number (Optional)</label>
+            <input type="text" id="onboardRegNumber" maxlength="50" placeholder="e.g. RC-1849204" style="width: 100%; background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 0.6rem; color: var(--text-primary); font-size: 0.88rem;">
+          </div>
+
+          <div>
+            <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.35rem;">Department / Project Role (Optional)</label>
+            <input type="text" id="onboardDept" maxlength="100" placeholder="e.g. Engineering & Autonomous Systems" style="width: 100%; background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 0.6rem; color: var(--text-primary); font-size: 0.88rem;">
+          </div>
+        </div>
+
+        <!-- BANK Account Connection -->
+        <div style="background: var(--bg-secondary); padding: 0.85rem; border-radius: 8px; border: 1px solid var(--border-subtle);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+            <span style="font-size: 0.8rem; font-weight: 600; color: var(--text-primary);">BANK Mobile Account (Optional)</span>
+            <span class="status-badge" style="background: var(--accent-terracotta-subtle); color: var(--accent-terracotta); font-size: 0.7rem;">Sponsor Referral: NACOS</span>
+          </div>
+          <input type="text" id="onboardBmoniPhone" maxlength="35" placeholder="e.g. 08012345678, +2348012345678, or tag.bmoni" style="width: 100%; background: var(--bg-primary); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 0.55rem; color: var(--text-primary); font-size: 0.85rem;">
+          <span style="font-size: 0.72rem; color: var(--text-muted); display: block; margin-top: 0.35rem;">Supports Nigerian mobile number (11 digits: 080... or +234...) or BANK tag.</span>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 0.5rem; margin-top: 0.5rem;">
+          <button class="btn btn-secondary" onclick="app.closeOnboardingModal()">Cancel</button>
+          <button class="btn btn-primary" id="btnSubmitSignUp" onclick="app.submitSignUp()">Create Account & Connect</button>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 0.75rem; margin: 0.5rem 0;">
+          <div style="flex: 1; height: 1px; background: var(--border-subtle);"></div>
+          <span style="font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase;">or</span>
+          <div style="flex: 1; height: 1px; background: var(--border-subtle);"></div>
+        </div>
+
+        <button type="button" class="btn btn-secondary" onclick="app.signInWithNacos()" style="width: 100%; justify-content: center; gap: 0.5rem; font-size: 0.85rem; padding: 0.65rem;">
+          <div style="width: 20px; height: 20px; border-radius: 50%; background: var(--accent-terracotta); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.7rem;">N</div>
+          <span>Sign Up with Kilikoro ID</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: USER ACCOUNT & ROLE MANAGER                                        -->
+  <!-- ========================================================================= -->
+  <div class="modal-overlay" id="userAccountModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 1000; align-items: center; justify-content: center; padding: 1rem;">
+    <div style="background: var(--bg-primary); border: 1px solid var(--border-medium); border-radius: 12px; width: 100%; max-width: 540px; max-height: 90vh; overflow-y: auto; padding: 1.75rem; box-shadow: var(--shadow-lg);">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+          <div class="user-avatar" id="accountModalAvatar" style="width: 42px; height: 42px; font-size: 1.1rem;">WM</div>
+          <div>
+            <h2 style="font-family: var(--font-editorial); font-size: 1.35rem; margin: 0;" id="accountModalName">User Profile</h2>
+            <span style="font-size: 0.78rem; color: var(--text-muted);" id="accountModalEmail">--</span>
+          </div>
+        </div>
+        <button onclick="app.closeUserAccountModal()" style="background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 1.25rem;">✕</button>
+      </div>
+
+      <!-- Identity Details Card -->
+      <div style="background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 1rem; margin-bottom: 1.25rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; border-bottom: 1px solid var(--border-subtle); padding-bottom: 0.5rem;">
+          <span style="font-size: 0.78rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em;">Current Active Role</span>
+          <span class="status-badge" id="accountModalRoleBadge" style="background: var(--accent-terracotta-subtle); color: var(--accent-terracotta); font-weight: 600;">Personal</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; font-size: 0.82rem;">
+          <div>
+            <span style="color: var(--text-muted); display: block; font-size: 0.72rem;" id="accountModalOrgLabel">INSTITUTION / CHAPTER</span>
+            <span style="font-weight: 500; color: var(--text-primary);" id="accountModalOrg">--</span>
+          </div>
+          <div>
+            <span style="color: var(--text-muted); display: block; font-size: 0.72rem;" id="accountModalIdLabel">PERSONAL / Kilikoro ID</span>
+            <span style="font-family: var(--font-mono); color: var(--text-primary);" id="accountModalNacosId">--</span>
+          </div>
+          <div>
+            <span style="color: var(--text-muted); display: block; font-size: 0.72rem;">BANK VIRTUAL CARD</span>
+            <span style="font-family: var(--font-mono); color: var(--accent-gold);" id="accountModalCard">5399 •••• •••• 4892</span>
+          </div>
+          <div>
+            <span style="color: var(--text-muted); display: block; font-size: 0.72rem;">AVAILABLE BALANCE</span>
+            <span style="font-weight: 700; color: var(--status-emerald);" id="accountModalBalance">$0.00 USDC (≈ ₦0 cNGN)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- GitHub Account Connection Card -->
+      <div style="background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 1rem; margin-bottom: 1.25rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+            <span style="font-weight: 600; font-size: 0.85rem; color: var(--text-primary);">GitHub Account Integration</span>
+            <span class="status-badge" id="accountGithubBadge" style="background: var(--status-emerald-subtle); color: var(--status-emerald); font-size: 0.7rem;">Not Connected</span>
+          </div>
+        </div>
+        <div id="accountGithubConnected" style="display: none; font-size: 0.8rem; color: var(--text-muted);">
+          Connected as: <span id="accountGithubUser" style="color: var(--accent-terracotta); font-weight: 600; font-family: var(--font-mono);">--</span>
+        </div>
+        <div id="accountGithubForm" style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
+          <input type="text" id="accountGithubInput" placeholder="Enter GitHub username (e.g. adewale-dev)" style="flex: 1; background: var(--bg-primary); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 0.5rem; font-size: 0.82rem; color: var(--text-primary);">
+          <button class="btn btn-secondary" onclick="app.connectGithub()" style="font-size: 0.78rem; white-space: nowrap;">
+            Connect GitHub
+          </button>
+        </div>
+      </div>
+
+      <!-- Role Credential & Perspective Switcher -->
+      <div style="margin-bottom: 1.25rem;">
+        <div id="roleSwitchUnlockedSection" style="display: block;">
+          <button class="btn btn-secondary" id="btnAccountToggleRole" onclick="app.requestRoleSwitch()" style="width: 100%; justify-content: center; padding: 0.7rem; font-size: 0.88rem; gap: 0.5rem;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 3 21 3 21 8"></polyline><line x1="4" y1="20" x2="21" y2="3"></line><polyline points="21 16 21 21 16 21"></polyline><line x1="15" y1="15" x2="21" y2="21"></line><line x1="4" y1="4" x2="9" y2="9"></line></svg>
+            <span id="accountToggleRoleLabel">Switch Perspective</span>
+          </button>
+        </div>
+        <div id="roleSwitchLockedSection" style="display: none; background: rgba(217, 119, 87, 0.08); border: 1px dashed var(--accent-terracotta); border-radius: 8px; padding: 0.85rem; text-align: center;">
+          <div style="font-size: 0.82rem; color: var(--text-primary); font-weight: 600; margin-bottom: 0.25rem;" id="roleLockedTitle">Organization Role Requires Verified Credentials</div>
+          <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.65rem;" id="roleLockedDesc">To post contracts and lock escrow, file your company and business registration credentials.</div>
+          <button class="btn btn-primary" onclick="app.openRoleUpgradeModal()" style="font-size: 0.8rem; padding: 0.4rem 0.85rem;">
+            File Credentials to Unlock
+          </button>
+        </div>
+      </div>
+
+      <!-- BANK Account Connection Card -->
+      <div style="background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 1rem; margin-bottom: 1.25rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <span style="font-weight: 600; font-size: 0.85rem; color: var(--text-primary);">BANK Connected Account</span>
+            <span class="status-badge" id="bmoniConnectionBadge" style="background: var(--status-emerald-subtle); color: var(--status-emerald); font-size: 0.7rem;">Active</span>
+          </div>
+          <span style="font-size: 0.72rem; color: var(--accent-gold);">Referral: NACOS</span>
+        </div>
+
+        <div id="bmoniConnectedView" style="display: block; font-size: 0.8rem; color: var(--text-muted);">
+          <div>Linked Account: <span id="bmoniLinkedAccountTag" style="font-family: var(--font-mono); color: var(--text-primary); font-weight: 500;">+234 810 ••• 4567</span></div>
+          <div>Settlement Rails: <span style="color: var(--status-emerald); font-weight: 500;">NIP & Virtual Mastercard (Instant &lt;5s)</span></div>
+        </div>
+
+        <div id="bmoniDisconnectedView" style="display: none; margin-top: 0.5rem;">
+          <div style="display: flex; gap: 0.5rem;">
+            <input type="text" id="bmoniConnectInput" placeholder="Enter BANK Phone or Tag (e.g. +234...)" style="flex: 1; background: var(--bg-primary); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 0.5rem; font-size: 0.82rem; color: var(--text-primary);">
+            <button class="btn btn-primary" onclick="app.submitConnectBmoni()" style="font-size: 0.78rem; white-space: nowrap;">
+              Link Account
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Secondary Actions: Off-Ramp or Sign Out -->
+      <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-subtle); padding-top: 1rem;">
+        <button class="btn btn-secondary" onclick="app.openBankWithdrawalModal(); app.closeUserAccountModal();" style="font-size: 0.82rem;">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+          Withdraw to Bank
+        </button>
+        <div style="display: flex; gap: 0.5rem;">
+          <button class="btn btn-secondary" onclick="app.signOut()" style="font-size: 0.82rem; color: var(--status-ruby);">
+            Sign Out
+          </button>
+          <button class="btn btn-primary" onclick="app.closeUserAccountModal()" style="font-size: 0.82rem;">
+            Done
+          </button>
+        </div>
+      </div>
+
+      <!-- Account Management / Danger Zone -->
+      <div style="border-top: 1px solid var(--border-subtle); margin-top: 1rem; padding-top: 0.85rem; display: flex; justify-content: space-between; align-items: center;">
+        <span style="font-size: 0.72rem; color: var(--text-muted);">Account Data Management</span>
+        <button onclick="app.openConfirmDeleteModal()" style="background: none; border: none; color: var(--status-ruby); font-size: 0.75rem; text-decoration: underline; cursor: pointer; opacity: 0.85;">
+          Delete Account & Purge Data
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: ROLE CREDENTIAL UPGRADE (DUAL-ROLE ACCREDITATION)                  -->
+  <!-- ========================================================================= -->
+  <div class="modal-overlay" id="roleUpgradeModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 1000; align-items: center; justify-content: center; padding: 1rem;">
+    <div style="background: var(--bg-primary); border: 1px solid var(--border-medium); border-radius: 12px; width: 100%; max-width: 500px; padding: 1.75rem; box-shadow: var(--shadow-lg);">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+        <div>
+          <h2 style="font-family: var(--font-editorial); font-size: 1.35rem; margin: 0;" id="roleUpgradeTitle">File Role Credentials</h2>
+          <span style="font-size: 0.8rem; color: var(--text-muted);" id="roleUpgradeSubtitle">Provide verified credentials to unlock dual-role capabilities</span>
+        </div>
+        <button onclick="app.closeRoleUpgradeModal()" style="background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 1.25rem;">✕</button>
+      </div>
+
+      <!-- Form for Organization Upgrade -->
+      <div id="upgradeEmployerFields" style="display: flex; flex-direction: column; gap: 0.85rem;">
+        <div>
+          <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.35rem;">Company / Organization Name <span style="color: var(--status-ruby);">*</span></label>
+          <input type="text" id="upgradeCompany" minlength="2" maxlength="100" required placeholder="e.g. Paystack Labs, Helix AI" style="width: 100%; background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 0.6rem; color: var(--text-primary); font-size: 0.88rem;">
+        </div>
+        <div>
+          <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.35rem;">Business Registration / RC Number (Optional)</label>
+          <input type="text" id="upgradeRegNumber" maxlength="50" placeholder="e.g. RC-1849204" style="width: 100%; background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 0.6rem; color: var(--text-primary); font-size: 0.88rem;">
+        </div>
+        <div>
+          <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.35rem;">Hiring Department / Project Role (Optional)</label>
+          <input type="text" id="upgradeDept" maxlength="100" placeholder="e.g. Engineering & Procurement" style="width: 100%; background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 0.6rem; color: var(--text-primary); font-size: 0.88rem;">
+        </div>
+      </div>
+
+      <!-- Form for Personal Upgrade -->
+      <div id="upgradeStudentFields" style="display: none; flex-direction: column; gap: 0.85rem;">
+        <div>
+          <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.35rem;">Institution / University / Chapter <span style="color: var(--status-ruby);">*</span></label>
+          <input type="text" id="upgradeUniv" minlength="2" maxlength="100" required placeholder="e.g. University of Lagos (UNILAG) or Independent" style="width: 100%; background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 0.6rem; color: var(--text-primary); font-size: 0.88rem;">
+        </div>
+        <div>
+          <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.35rem;">Personal Member ID / Matric Number <span style="color: var(--status-ruby);">*</span></label>
+          <input type="text" id="upgradeNacosId" minlength="3" maxlength="40" required placeholder="e.g. UNILAG-CS-2026-0482 or PERS-9821" style="width: 100%; background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 0.6rem; color: var(--text-primary); font-size: 0.88rem;">
+        </div>
+        <div>
+          <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.35rem;">GitHub Username / Profile URL (Optional)</label>
+          <input type="text" id="upgradeGithub" maxlength="100" placeholder="e.g. octocat" style="width: 100%; background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 0.6rem; color: var(--text-primary); font-size: 0.88rem;">
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; gap: 0.5rem; margin-top: 1.25rem;">
+        <button class="btn btn-secondary" onclick="app.closeRoleUpgradeModal()">Cancel</button>
+        <button class="btn btn-primary" onclick="app.submitRoleUpgrade()">Verify & Unlock Role</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: CONFIRM ACCOUNT DELETION                                           -->
+  <!-- ========================================================================= -->
+  <div class="modal-overlay" id="confirmDeleteModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 1000; align-items: center; justify-content: center; padding: 1rem;">
+    <div style="background: var(--bg-primary); border: 1px solid var(--status-ruby); border-radius: 12px; width: 100%; max-width: 440px; padding: 1.5rem; box-shadow: var(--shadow-lg);">
+      <h3 style="color: var(--status-ruby); font-family: var(--font-editorial); font-size: 1.3rem; margin: 0 0 0.5rem 0;">Permanently Delete Account?</h3>
+      <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.45; margin-bottom: 1.25rem;">
+        This action is irreversible. Your profile, credentials, and authentication record will be permanently purged from the Supabase database.
+      </p>
+      <div style="display: flex; justify-content: flex-end; gap: 0.5rem;">
+        <button class="btn btn-secondary" onclick="app.closeConfirmDeleteModal()">Cancel</button>
+        <button class="btn btn-primary" style="background: var(--status-ruby); border-color: var(--status-ruby);" onclick="app.deleteAccount()">Yes, Delete Account</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: BANK NIGERIAN BANK OFF-RAMP                                       -->
+  <!-- ========================================================================= -->
+  <div class="modal-overlay" id="bankWithdrawalModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 1000; align-items: center; justify-content: center; padding: 1rem;">
+    <div style="background: var(--bg-primary); border: 1px solid var(--border-medium); border-radius: 12px; width: 100%; max-width: 520px; padding: 1.75rem; box-shadow: var(--shadow-lg);">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+        <div>
+          <h2 style="font-family: var(--font-editorial); font-size: 1.4rem;">BANK Nigerian Bank Off-Ramp</h2>
+          <span style="font-size: 0.8rem; color: var(--text-muted);">Direct instant settlement to any Nigerian bank (NUBAN)</span>
+        </div>
+        <button onclick="app.closeBankWithdrawalModal()" style="background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 1.25rem;">✕</button>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 1rem;">
+        <!-- Bank Selector -->
+        <div>
+          <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.35rem;">Destination Bank</label>
+          <select id="bankSelect" style="width: 100%; background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 0.65rem; color: var(--text-primary); font-size: 0.88rem;">
+            <option value="058">Guaranty Trust Bank (GTBank)</option>
+            <option value="044">Access Bank</option>
+            <option value="057">Zenith Bank</option>
+            <option value="033">United Bank for Africa (UBA)</option>
+            <option value="011">First Bank of Nigeria</option>
+            <option value="090267">Kuda Microfinance Bank</option>
+            <option value="100004">OPay Digital Services</option>
+            <option value="100033">PalmPay</option>
+          </select>
+        </div>
+
+        <!-- Account Number + Resolve Button -->
+        <div>
+          <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.35rem;">10-Digit NUBAN Account Number <span style="color: var(--status-ruby);">*</span></label>
+          <div style="display: flex; gap: 0.5rem;">
+            <input type="text" id="bankAccountNumber" inputmode="numeric" maxlength="10" minlength="10" pattern="[0-9]{10}" required placeholder="0123456789 (Exact 10 digits)" style="flex: 1; background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 0.65rem; color: var(--text-primary); font-family: var(--font-mono); font-size: 0.95rem;">
+            <button class="btn btn-secondary" onclick="app.resolveBankAccount()" style="font-size: 0.82rem; white-space: nowrap;">
+              Resolve Name
+            </button>
+          </div>
+          <span style="font-size: 0.7rem; color: var(--text-muted); display: block; margin-top: 0.25rem;">Must be exactly 10 digits</span>
+        </div>
+
+        <!-- Resolved Account Banner -->
+        <div id="bankResolvedBanner" style="display: none; background: var(--status-emerald-subtle); border: 1px solid var(--status-emerald); border-radius: 6px; padding: 0.75rem; font-size: 0.85rem; color: var(--status-emerald);">
+          ✓ Account Verified: <b id="bankResolvedName" style="color: var(--text-primary);">WALI O. MEDUGU</b>
+        </div>
+
+        <!-- Withdrawal Amount -->
+        <div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 0.35rem;">
+            <label style="font-size: 0.8rem; color: var(--text-muted);">Amount to Withdraw (USDC) <span style="color: var(--status-ruby);">*</span></label>
+            <span style="font-size: 0.78rem; color: var(--text-muted);" id="bankAvailableBalanceLabel">Available: $0.00 USDC</span>
+          </div>
+          <input type="number" id="bankWithdrawAmount" min="1" step="0.01" required placeholder="e.g. 50 (Min $1.00 USDC)" oninput="app.updateWithdrawalCalculations()" style="width: 100%; background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 0.65rem; color: var(--text-primary); font-size: 0.88rem;">
+          <span style="font-size: 0.7rem; color: var(--text-muted); display: block; margin-top: 0.25rem;">Minimum withdrawal: $1.00 USDC</span>
+        </div>
+
+        <!-- Summary & Exchange Rate -->
+        <div style="background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 0.85rem; font-size: 0.82rem;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 0.25rem;">
+            <span style="color: var(--text-muted);">BANK Exchange Rate:</span>
+            <span style="font-family: var(--font-mono); font-weight: 600;">1 USDC = ₦1,600 cNGN</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 0.25rem;">
+            <span style="color: var(--text-muted);">Network Transfer Fee:</span>
+            <span style="font-family: var(--font-mono); font-weight: 600;">₦50.00 NGN</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; border-top: 1px solid var(--border-subtle); padding-top: 0.4rem; margin-top: 0.3rem;">
+            <span style="font-weight: 600; color: var(--text-primary);">Net Settlement to Bank:</span>
+            <span style="font-family: var(--font-mono); font-weight: 700; color: var(--status-emerald);" id="bankNetPayout">₦0.00 cNGN</span>
+          </div>
+        </div>
+
+        <!-- Submission Feedback -->
+        <div id="bankWithdrawalStatus" style="display: none; padding: 0.75rem; border-radius: 6px; font-size: 0.82rem; line-height: 1.4;"></div>
+
+        <!-- Actions -->
+        <div style="display: flex; justify-content: flex-end; gap: 0.5rem; margin-top: 0.5rem;">
+          <button class="btn btn-secondary" onclick="app.closeBankWithdrawalModal()">Cancel</button>
+          <button class="btn btn-primary" id="btnSubmitWithdrawal" onclick="app.submitBankWithdrawal()">
+            Confirm & Withdraw NGN
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: BANK INSTANT DEPOSIT & CARD FUNDING (9PSB & NIP RAILS)             -->
+  <!-- ========================================================================= -->
+  <div class="modal-overlay" id="bmoniDepositModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 1000; align-items: center; justify-content: center; padding: 1rem;">
+    <div style="background: var(--bg-primary); border: 1px solid var(--border-medium); border-radius: 12px; width: 100%; max-width: 480px; padding: 1.75rem; box-shadow: var(--shadow-lg);">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+        <div>
+          <h2 style="font-family: var(--font-editorial); font-size: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+            <span>Fund BANK Account</span>
+            <span class="status-badge" style="background: var(--status-emerald-subtle); color: var(--status-emerald); font-size: 0.72rem;">9PSB Rails</span>
+          </h2>
+          <span style="font-size: 0.75rem; color: var(--text-muted);">Instant deposit to your BANK borderless balance & Virtual Mastercard</span>
+        </div>
+        <button onclick="app.closeDepositModal()" style="background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 1.25rem;">✕</button>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 1rem;">
+        <!-- Preset Amount Pills -->
+        <div>
+          <label style="font-size: 0.78rem; color: var(--text-muted); display: block; margin-bottom: 0.4rem;">Select Quick Amount:</label>
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.4rem;">
+            <button type="button" class="filter-pill" onclick="document.getElementById('depositAmountInput').value = '10'; app.updateDepositCalculations();" style="justify-content: center; font-size: 0.8rem; padding: 0.35rem;">
+              +$10
+            </button>
+            <button type="button" class="filter-pill" onclick="document.getElementById('depositAmountInput').value = '50'; app.updateDepositCalculations();" style="justify-content: center; font-size: 0.8rem; padding: 0.35rem;">
+              +$50
+            </button>
+            <button type="button" class="filter-pill" onclick="document.getElementById('depositAmountInput').value = '100'; app.updateDepositCalculations();" style="justify-content: center; font-size: 0.8rem; padding: 0.35rem;">
+              +$100
+            </button>
+            <button type="button" class="filter-pill" onclick="document.getElementById('depositAmountInput').value = '500'; app.updateDepositCalculations();" style="justify-content: center; font-size: 0.8rem; padding: 0.35rem;">
+              +$500
+            </button>
+          </div>
+        </div>
+
+        <!-- Custom USD Amount Input -->
+        <div>
+          <label style="font-size: 0.8rem; font-weight: 600; color: var(--text-primary); display: block; margin-bottom: 0.35rem;">
+            Deposit Amount (USDC):
+          </label>
+          <div style="position: relative;">
+            <span style="position: absolute; left: 0.85rem; top: 50%; transform: translateY(-50%); font-weight: 600; color: var(--text-muted);">$</span>
+            <input type="number" id="depositAmountInput" min="1" max="10000" step="1" value="50" oninput="app.updateDepositCalculations()" placeholder="50.00" style="width: 100%; background: var(--bg-secondary); border: 1px solid var(--border-medium); border-radius: 6px; padding: 0.65rem 0.85rem 0.65rem 1.8rem; font-size: 1.05rem; font-family: var(--font-mono); font-weight: 600; color: var(--text-primary);">
+          </div>
+        </div>
+
+        <!-- Calculation & Rail Summary Box -->
+        <div style="background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 0.85rem; font-size: 0.82rem; display: flex; flex-direction: column; gap: 0.4rem;">
+          <div style="display: flex; justify-content: space-between;">
+            <span style="color: var(--text-muted);">Naira Equivalent (1 USDC = ₦1,600):</span>
+            <span style="font-family: var(--font-mono); font-weight: 600; color: var(--text-primary);" id="depositNgnEquivalent">≈ ₦80,000 cNGN</span>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span style="color: var(--text-muted);">Deposit Rail:</span>
+            <span style="font-family: var(--font-mono); font-weight: 600; color: var(--status-emerald);">BANK 9PSB Dedicated Virtual NUBAN</span>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span style="color: var(--text-muted);">Dedicated NUBAN:</span>
+            <span style="font-family: var(--font-mono); font-weight: 600;">6176775063 (9PSB)</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; border-top: 1px solid var(--border-subtle); padding-top: 0.4rem; margin-top: 0.2rem;">
+            <span style="font-weight: 600; color: var(--text-primary);">Total Credited to BANK Wallet:</span>
+            <span style="font-family: var(--font-mono); font-weight: 700; color: var(--status-emerald);" id="depositTotalCredit">$50.00 USDC</span>
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div style="display: flex; justify-content: flex-end; gap: 0.5rem; margin-top: 0.5rem;">
+          <button type="button" class="btn btn-secondary" onclick="app.closeDepositModal()">Cancel</button>
+          <button type="button" class="btn btn-primary" id="btnConfirmDeposit" onclick="app.submitBmoniDeposit()">
+            Confirm BANK Deposit
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: KILIKORO PROOF-OF-COMPETENCE OFFICIAL CERTIFICATE                  -->
+  <!-- ========================================================================= -->
+  <div class="modal-overlay" id="certificateModal" style="display: none; position: fixed; inset: 0; z-index: 1050; align-items: center; justify-content: center; overflow-y: auto; padding: 1.5rem;">
+    <div class="certificate-modal-sheet" style="position: relative;">
+      
+      <!-- Top Action Bar (Print / LinkedIn / Copy URL / Close) -->
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border-subtle); padding-bottom: 0.75rem; flex-wrap: wrap; gap: 0.75rem;">
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+          <span class="status-badge" style="background: var(--status-emerald-subtle); color: var(--status-emerald);">
+            <span class="status-dot"></span> Kilikoro Verified Credential
+          </span>
+          <span style="font-size: 0.78rem; color: var(--text-muted);" id="certTimestamp">Issued: 2026-09-29</span>
+        </div>
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+          <button class="btn btn-secondary" onclick="app.copyCertPublicUrl()" style="font-size: 0.8rem;">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+            Copy Public Link
+          </button>
+          <button class="btn btn-secondary" onclick="app.addCertToLinkedIn()" style="font-size: 0.8rem; background: rgba(10, 102, 194, 0.15); border-color: rgba(10, 102, 194, 0.4); color: #70b5f9;">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.6a1.65 1.65 0 0 0-1.66 1.66 1.66 1.66 0 0 0 1.66 1.65 1.66 1.66 0 0 0 1.66-1.65A1.66 1.66 0 0 0 7.83 6.6z"/></svg>
+            Add to LinkedIn
+          </button>
+          <button class="btn btn-secondary" onclick="window.print()" style="font-size: 0.8rem;">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+            Print / PDF
+          </button>
+          <button class="btn btn-secondary" onclick="app.closeCertificateModal()" style="font-size: 0.8rem;">✕ Close</button>
+        </div>
+      </div>
+
+      <!-- Public Verification Banner (Shown when loaded via public ?cert= link or verified) -->
+      <div id="certPublicVerificationBanner" style="display: none; background: rgba(15, 118, 110, 0.15); border: 1px solid var(--status-emerald); border-radius: 8px; padding: 0.65rem 1rem; margin-bottom: 1.25rem; font-size: 0.82rem; color: var(--status-emerald); align-items: center; justify-content: space-between;">
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+          <span class="status-dot" style="background: var(--status-emerald);"></span>
+          <span><strong>Public Verification Active:</strong> Cryptographically verified record hosted on Kilikoro Protocol.</span>
+        </div>
+        <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted);" id="certPublicStatusTag">STATUS: IMMUTABLE</span>
+      </div>
+
+      <!-- Institutional Crest & Header -->
+      <div style="text-align: center; margin-bottom: 1.5rem;">
+        <div style="display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: 50%; background: var(--accent-terracotta-subtle); border: 1px solid var(--accent-terracotta); color: var(--accent-terracotta); font-weight: 700; font-size: 1.2rem; margin-bottom: 0.5rem;">
+          K
+        </div>
+        <div style="font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); font-weight: 600;">
+          Kilikoro Autonomous Verification Protocol
+        </div>
+        <div style="font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.08em; text-transform: uppercase;">
+          National Directorate for Software Competence & Industry Accreditation
+        </div>
+        <h1 style="font-family: var(--font-editorial); font-size: 1.75rem; color: var(--text-primary); margin-top: 0.75rem; letter-spacing: 0.02em;">
+          Kilikoro Verification Certificate
+        </h1>
+        <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent-terracotta); margin-top: 0.25rem;" id="certId">
+          KILI-CERT-2026-SHA-8F29A10C
+        </div>
+      </div>
+
+      <!-- Body / Attestation Statement -->
+      <div style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6; text-align: center; margin-bottom: 1.5rem;">
+        This document certifies that the software engineer identified below has undergone automated AST static analysis, runtime algorithmic complexity benchmarking, and cryptographic secret hygiene auditing via the <b>Kilikoro Protocol</b>.
+      </div>
+
+      <!-- Candidate & Codebase Metadata Grid -->
+      <div style="background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 1rem 1.25rem; margin-bottom: 1.25rem;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; font-size: 0.82rem;">
+          <div>
+            <span style="color: var(--text-muted); display: block; font-size: 0.7rem; text-transform: uppercase;">Candidate Name</span>
+            <span style="font-weight: 600; color: var(--text-primary);" id="certCandidateName">--</span>
+          </div>
+          <div>
+            <span style="color: var(--text-muted); display: block; font-size: 0.7rem; text-transform: uppercase;">Candidate Member DID / Matric</span>
+            <span style="font-family: var(--font-mono); color: var(--accent-terracotta);" id="certCandidateDid">--</span>
+          </div>
+          <div>
+            <span style="color: var(--text-muted); display: block; font-size: 0.7rem; text-transform: uppercase;">Audited Codebase Repository</span>
+            <span style="font-family: var(--font-mono); color: var(--text-primary);" id="certRepoUrl">--</span>
+          </div>
+          <div>
+            <span style="color: var(--text-muted); display: block; font-size: 0.7rem; text-transform: uppercase;">Auditing Engine / Model</span>
+            <span style="color: var(--status-emerald);" id="certEngineModel">Kilikoro Neural Oracle + AST Engine</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Audit Metrics Table -->
+      <table class="cert-metrics-table" style="width: 100%; border-collapse: collapse; margin-bottom: 1.5rem;">
+        <thead>
+          <tr>
+            <th>Audit Dimension</th>
+            <th>Standard Benchmark</th>
+            <th>Observed Result</th>
+            <th>Accreditation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Production Architecture Quality</td>
+            <td>&ge; 80% Clean Abstraction</td>
+            <td id="certMetricArch">96% Passed</td>
+            <td><span class="tag" style="color: var(--status-emerald);">Verified</span></td>
+          </tr>
+          <tr>
+            <td>Security & Secret Hygiene</td>
+            <td>Zero Exposed API Keys</td>
+            <td id="certMetricSec">Clean Git History</td>
+            <td><span class="tag" style="color: var(--status-emerald);">Verified</span></td>
+          </tr>
+          <tr>
+            <td>Error Handling & Resilience</td>
+            <td>Try/Catch & Boundary Guards</td>
+            <td id="certMetricErr">Robust Guards</td>
+            <td><span class="tag" style="color: var(--status-emerald);">Verified</span></td>
+          </tr>
+          <tr>
+            <td>Algorithmic Asymptotic Limit</td>
+            <td>O(N log N) Scalability</td>
+            <td id="certMetricComp">O(N log N) Verified</td>
+            <td><span class="tag" style="color: var(--status-emerald);">Verified</span></td>
+          </tr>
+          <tr>
+            <td>BANK Escrow Settlement Clearance</td>
+            <td>Automated Direct Release</td>
+            <td>Cleared for Instant Payout</td>
+            <td><span class="tag" style="color: var(--status-emerald);">Active</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Signatures & Verification Hash -->
+      <div class="cert-signatures">
+        <div class="cert-sig-block">
+          <div class="cert-sig-line"></div>
+          <div class="cert-sig-name">Engr. O. Babatunde, FBCS</div>
+          <div class="cert-sig-title">Director of Accreditation, NACOS National</div>
+        </div>
+        <div class="cert-sig-block">
+          <div style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-muted); margin-bottom: 0.35rem;" id="certSigHash">
+            SHA256: e82b7190ca44bc0891d4e0821bfe4
+          </div>
+          <div class="cert-sig-line"></div>
+          <div class="cert-sig-name">Kilikoro Autonomous Oracle</div>
+          <div class="cert-sig-title">Cryptographic Escrow Settlement Node</div>
+        </div>
+      </div>
+
+      <!-- GitHub README Status Badge & Verification Link Card -->
+      <div style="background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 1rem 1.25rem; margin-top: 1.5rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.65rem; flex-wrap: wrap; gap: 0.5rem;">
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <span style="font-size: 0.78rem; font-weight: 600; text-transform: uppercase; color: var(--text-primary); letter-spacing: 0.05em;">GitHub README Status Badge</span>
+            <img id="certBadgeImg" src="/api/badge?title=Kilikoro" alt="Kilikoro Verified Badge" style="height: 20px; vertical-align: middle; border-radius: 3px;">
+          </div>
+          <span style="font-size: 0.72rem; color: var(--status-emerald);">Live Dynamic SVG</span>
+        </div>
+        <div style="display: flex; gap: 0.5rem; align-items: center;">
+          <input type="text" id="certBadgeMarkdown" readonly style="flex: 1; background: var(--bg-primary); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 0.5rem 0.75rem; color: var(--text-secondary); font-family: var(--font-mono); font-size: 0.75rem;" value="[![Kilikoro Verified Competence](https://kilikoro.vercel.app/api/badge?title=Kilikoro)](https://kilikoro.vercel.app/)">
+          <button class="btn btn-secondary" onclick="app.copyReadmeBadge()" style="font-size: 0.78rem; white-space: nowrap; padding: 0.5rem 0.85rem;">
+            Copy Markdown
+          </button>
+        </div>
+        <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.4rem;">
+          Paste this snippet into your repository's <code>README.md</code> to display an immutable verification seal linking directly to this certificate.
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: KILIKORO CLI AUTH TOKEN & ONE-LINER COMMAND                        -->
+  <!-- ========================================================================= -->
+  <div class="modal-overlay" id="cliTokenModal" style="display: none; position: fixed; inset: 0; z-index: 1000; align-items: center; justify-content: center; padding: 1rem;">
+    <div style="background: var(--bg-primary); border: 1.5px solid var(--border-medium); border-radius: 12px; width: 100%; max-width: 520px; padding: 1.75rem; box-shadow: var(--shadow-lg);">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+        <div style="display: flex; align-items: center; gap: 0.6rem;">
+          <span class="status-dot" style="background: var(--accent-terracotta);"></span>
+          <h2 style="font-family: var(--font-editorial); font-size: 1.35rem; margin: 0; color: var(--ink);">Developer CLI Integration</h2>
+        </div>
+        <button onclick="app.closeCliTokenModal()" style="background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 1.25rem;">✕</button>
+      </div>
+
+      <div style="font-size: 0.84rem; color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.5;">
+        Kilikoro CLI is published live on NPM. Scan candidate repositories or CI/CD workflows directly from your local terminal with zero installation.
+      </div>
+
+      <!-- Token Box -->
+      <div style="margin-bottom: 1rem;">
+        <label style="font-size: 0.75rem; color: var(--text-muted); display: block; margin-bottom: 0.35rem; text-transform: uppercase; letter-spacing: 0.05em; font-family: var(--font-mono);">Your Authenticated API Token</label>
+        <div style="display: flex; gap: 0.5rem;">
+          <input type="text" id="cliTokenValue" value="kili_live_sec_99482_unilag_node04" readonly style="flex: 1; background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 0.65rem; color: var(--accent-terracotta); font-family: var(--font-mono); font-size: 0.85rem;">
+          <button class="btn btn-secondary" onclick="app.copyCliToken()" style="font-size: 0.8rem; white-space: nowrap;">
+            Copy Token
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick Run One-Liner -->
+      <div style="margin-bottom: 1.25rem;">
+        <label style="font-size: 0.75rem; color: var(--text-muted); display: block; margin-bottom: 0.35rem; text-transform: uppercase; letter-spacing: 0.05em; font-family: var(--font-mono);">Global Terminal Command</label>
+        <div style="background: var(--bg-code); border: 1px solid #362921; border-radius: 6px; padding: 0.75rem; font-family: var(--font-mono); font-size: 0.82rem; color: #FAF6F0; display: flex; justify-content: space-between; align-items: center;">
+          <code>npx kilikoro scan &lt;repo-url&gt;</code>
+          <button class="btn btn-secondary" onclick="navigator.clipboard.writeText('npx kilikoro scan https://github.com/WaliMedugu/Wali Medugu-Wali Medugu'); app.showToast('Copied to Clipboard', 'One-liner CLI command copied!', 'success');" style="font-size: 0.72rem; padding: 0.25rem 0.5rem; background: rgba(255,255,255,0.12); color: #fff; border-color: rgba(255,255,255,0.25);">Copy</button>
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: flex-end;">
+        <button class="btn btn-primary" onclick="app.closeCliTokenModal()" style="font-size: 0.82rem;">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: WELCOME PITCH & TEAM PRESENTATION (FIRST VISIT POPUP)              -->
+  <!-- ========================================================================= -->
+  <div class="modal-overlay" id="welcomePitchModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.78); z-index: 1100; align-items: center; justify-content: center; padding: 1.25rem;">
+    <div style="background: var(--bg-primary); border: 1.5px solid var(--border-medium); border-radius: 14px; width: 100%; max-width: 540px; overflow: hidden; box-shadow: var(--shadow-lg); animation: fadeUp 250ms ease;">
+      <!-- Hero Display Image -->
+      <div style="width: 100%; height: 210px; overflow: hidden; background: #2A1F1D; position: relative;">
+        <img src="assets/welcome-hero.png" alt="Kilikoro Autonomous Protocol" style="width: 100%; height: 100%; object-fit: cover;">
+        <div style="position: absolute; inset: 0; background: linear-gradient(180deg, transparent 40%, rgba(20,17,15,0.85) 100%);"></div>
+        <div style="position: absolute; bottom: 0.85rem; left: 1.25rem; right: 1.25rem; display: flex; justify-content: space-between; align-items: flex-end;">
+          <div>
+            <span class="status-badge" style="background: var(--accent-terracotta); color: #FAF6F0; font-weight: 700; font-size: 0.72rem; letter-spacing: 0.05em;">
+              TEAM CROWN CHASERS • BUILDX 2026
+            </span>
+            <h2 style="font-family: var(--font-editorial); font-size: 1.5rem; color: #FAF6F0; margin: 0.25rem 0 0 0;">
+              Kilikoro Protocol
+            </h2>
+          </div>
+          <button onclick="app.closeWelcomePitchModal()" style="background: rgba(255,255,255,0.2); border: none; border-radius: 50%; width: 28px; height: 28px; color: #FAF6F0; cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center;">✕</button>
+        </div>
+      </div>
+
+      <!-- Pitch Statements -->
+      <div style="padding: 1.5rem;">
+        <!-- Two Liner: Problem -->
+        <div style="margin-bottom: 1.25rem; background: var(--bg-secondary); border-left: 3px solid var(--status-ruby); border-radius: 0 8px 8px 0; padding: 0.85rem 1rem;">
+          <div style="font-size: 0.72rem; text-transform: uppercase; font-weight: 700; color: var(--status-ruby); letter-spacing: 0.05em; margin-bottom: 0.25rem;">
+            The Problem
+          </div>
+          <p style="font-size: 0.86rem; color: var(--text-primary); line-height: 1.55; margin: 0;">
+            Hiring African software engineers is plagued by resume fraud, fake portfolio claims, and unvetted code.<br>
+            At the same time, verified student builders struggle to receive trust and international cross-border milestone payments without predatory escrow friction.
+          </p>
+        </div>
+
+        <!-- Two Liner: Solution -->
+        <div style="margin-bottom: 1.5rem; background: var(--bg-secondary); border-left: 3px solid var(--status-emerald); border-radius: 0 8px 8px 0; padding: 0.85rem 1rem;">
+          <div style="font-size: 0.72rem; text-transform: uppercase; font-weight: 700; color: var(--status-emerald); letter-spacing: 0.05em; margin-bottom: 0.25rem;">
+            The Solution
+          </div>
+          <p style="font-size: 0.86rem; color: var(--text-primary); line-height: 1.55; margin: 0;">
+            Kilikoro performs autonomous AST code quality, security hygiene, and deep research fact-checks against real GitHub repositories.<br>
+            Verified competence is attested on-chain, and completed contracts unlock instant direct-to-bank settlements and virtual Mastercard rails via BANK.
+          </p>
+        </div>
+
+        <!-- Actions -->
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <span style="font-size: 0.75rem; color: var(--text-muted);">
+            Team: Wali Medugu & Wali Medugu
+          </span>
+          <button class="btn btn-primary" onclick="app.closeWelcomePitchModal()" style="padding: 0.55rem 1.25rem; font-size: 0.85rem;">
+            Enter Kilikoro Platform →
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- In-App Toast Container (Sonner / Linear Style) -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Scripts -->
+  <script src="js/local-config.js"></script>
+  <script src="js/supabase-client.js"></script>
+  <script src="js/claude-service.js"></script>
+  <script src="js/ast-engine.js"></script>
+  <script src="js/escrow-simulator.js"></script>
+  <script src="js/bmoni-client.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
