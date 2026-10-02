@@ -43,6 +43,27 @@ class KilikoroSoundEngine {
     return this.enabled;
   }
 
+    playDiscovery() {
+    if (!this.enabled) return;
+    this.init();
+    if (!this.ctx) return;
+    try {
+      const now = this.ctx.currentTime;
+      [440, 554.37, 659.25, 880].forEach((freq, idx) => {
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = "sine";
+        osc.frequency.setValueAtTime(freq, now + idx * 0.05);
+        gain.gain.setValueAtTime(0.035, now + idx * 0.05);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.05 + 0.35);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now + idx * 0.05);
+        osc.stop(now + idx * 0.05 + 0.38);
+      });
+    } catch (e) {}
+  }
+
   playClick() {
     if (!this.enabled) return;
     this.init();
@@ -530,7 +551,127 @@ function cacheResolver(entries, threshold) {
     }
   }
 
+  
+  // =========================================================================
+  // INTERACTIVE FEATURE DISCOVERY & CONTEXTUAL GUIDE SYSTEM
+  // =========================================================================
+
+  initDiscoveryGuide() {
+    this.discoveryFeatures = {
+      "view-home": {
+        badge: "Dashboard & Persona Switcher",
+        title: "Welcome to Kilikoro Ecosystem",
+        desc: "Kilikoro is your unified developer operating system. Monitor active milestone escrows, track verified student attestations, and toggle seamlessly between personal and organization modes.",
+        tip: "👉 Click the <b>'Demo User'</b> dropdown in the top header to instantly experience student developer and sponsor organization accounts!",
+        index: "1 of 5"
+      },
+      "view-verifier": {
+        badge: "Candidate Verifier & Code X-Ray",
+        title: "Deterministic Anti-AI Code Analysis",
+        desc: "Analyzes GitHub repositories via Abstract Syntax Trees (AST) to measure cyclomatic complexity, code entropy, and scan commit diffs for exposed API credentials.",
+        tip: "👉 Click <b>'Run Audit'</b> to watch the multi-phase security inspector evaluate a repository and mint an official certificate!",
+        index: "2 of 5"
+      },
+      "view-contracts": {
+        badge: "Milestone Contracts & Escrow",
+        title: "Verifiable Public & Private Bounties",
+        desc: "Manage smart milestone escrows funded by sponsor organizations. Bounties unlock automatically in under 2 seconds upon passing deterministic test assertions.",
+        tip: "👉 Click on any contract card to open the live workspace and run local code assertions!",
+        index: "3 of 5"
+      },
+      "view-workspace": {
+        badge: "Interactive Developer Workspace",
+        title: "Live Code Testing & Instant Settlement",
+        desc: "An integrated developer IDE with real-time test execution, Big-O dynamic runtime complexity assertions ($N=10 \to 10,000$), and instant payout triggers.",
+        tip: "👉 Try clicking <b>'Authentic Code'</b> $\to$ <b>'Run Tests'</b> $\to$ <b>'Submit & Claim'</b> to trigger immediate settlement confetti and card balance credit!",
+        index: "4 of 5"
+      },
+      "view-wallet": {
+        badge: "BANK Wallet & 3D Virtual Cards",
+        title: "Instant Developer Settlement Rails",
+        desc: "Direct-to-bank settlement simulation with interactive 3D virtual Mastercards, card freeze security toggles, and instant simulated deposit vaults.",
+        tip: "👉 Click on the <b>3D Virtual Mastercard</b> to flip between front and back details, or click <b>'Freeze Card'</b> to test security locks!",
+        index: "5 of 5"
+      },
+      "cert-modal": {
+        badge: "Verification Certificate",
+        title: "Cryptographic Proof of Competence",
+        desc: "Tamper-proof verifiable credential signed by Kilikoro verification nodes with immutable SHA-256 hashes.",
+        tip: "👉 Click <b>'Export PNG'</b> for a high-DPI image or <b>'Export PDF'</b> for print-ready landscape documents!",
+        index: "Credential"
+      }
+    };
+  }
+
+  showContextualDiscovery(key, force = false) {
+    if (!this.discoveryFeatures) this.initDiscoveryGuide();
+    const item = this.discoveryFeatures[key];
+    if (!item) return;
+
+    const storageKey = "kilikoro_seen_discovery_" + key;
+    if (!force) {
+      try {
+        if (localStorage.getItem(storageKey)) return;
+      } catch (e) {}
+    }
+
+    this.dismissDiscoveryCard();
+
+    // Play subtle pleasant discovery sound
+    if (this.soundEngine) this.soundEngine.playDiscovery();
+
+    const card = document.createElement("div");
+    card.id = "activeDiscoveryBeacon";
+    card.className = "discovery-beacon-card";
+    card.innerHTML = `
+      <div class="discovery-badge">
+        <span class="discovery-pulse-dot"></span>
+        <span>${item.badge}</span>
+      </div>
+      <div class="discovery-title">${item.title}</div>
+      <div class="discovery-desc">${item.desc}</div>
+      <div class="discovery-tip-box">${item.tip}</div>
+      <div class="discovery-actions">
+        <span class="discovery-progress-txt">${item.index} • Discovery Guide</span>
+        <button class="btn btn-primary" onclick="app.dismissDiscoveryCard('${key}')" style="font-size: 0.75rem; padding: 0.35rem 0.85rem;">
+          Got it ✓
+        </button>
+      </div>
+    `;
+
+    document.body.appendChild(card);
+  }
+
+  dismissDiscoveryCard(key = null) {
+    const existing = document.getElementById("activeDiscoveryBeacon");
+    if (existing) {
+      existing.classList.add("hiding");
+      setTimeout(() => {
+        if (existing.parentNode) existing.parentNode.removeChild(existing);
+      }, 240);
+    }
+    if (key) {
+      try {
+        localStorage.setItem("kilikoro_seen_discovery_" + key, "true");
+      } catch (e) {}
+    }
+  }
+
+  replayDiscoveryGuide() {
+    try {
+      Object.keys(localStorage).forEach(k => {
+        if (k.startsWith("kilikoro_seen_discovery_")) localStorage.removeItem(k);
+      });
+    } catch (e) {}
+    const currentView = document.querySelector(".app-view.active")?.id || "view-home";
+    this.showToast("Discovery Guide Active", "Interactive feature discovery re-enabled! Showing guide for current view...", "info", 3000);
+    setTimeout(() => {
+      this.showContextualDiscovery(currentView, true);
+    }, 300);
+  }
+
   switchView(viewId) {
+    setTimeout(() => this.showContextualDiscovery(viewId), 450);
     document.querySelectorAll(".nav-item").forEach((item) => item.classList.remove("active"));
     document.querySelectorAll(".app-view").forEach((view) => view.classList.remove("active"));
 
@@ -1996,6 +2137,7 @@ function cacheResolver(entries, threshold) {
   // =========================================================================
 
   async openCertificateModal(certData = null) {
+    setTimeout(() => this.showContextualDiscovery("cert-modal"), 600);
     const modal = document.getElementById("certificateModal");
     if (!modal) return;
 
