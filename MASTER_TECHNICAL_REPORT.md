@@ -1,5 +1,5 @@
 # Kilikoro Protocol: Master Technical Architecture & Engineering Deep-Dive Report
-**Project:** Kilikoro Protocol (BuildX 2026 - Team Crown Chasers)  
+**Project:** Kilikoro Protocol (First Commit 2026 - Wali Medugu (Solo Developer))  
 **Classification:** Complete Software Architecture & System Blueprint  
 
 ---
@@ -12,13 +12,13 @@ At its core, Kilikoro is an **automated trust and payment protocol for software 
 ┌────────────────────────────────────────────────────────────────────────┐
 │                        KILIKORO MECHANICAL LOOP                        │
 ├────────────────────────────────────────────────────────────────────────┤
-│ STEP 1: Employer locks capital into a BMONI Stablecoin Escrow Vault.  │
+│ STEP 1: Employer locks capital into a BANK Stablecoin Escrow Vault.  │
 │ STEP 2: Student pulls task specs via Web or `kilikoro` CLI.            │
 │ STEP 3: Student submits code to an isolated browser/node Sandbox.      │
 │ STEP 4: AST Analyzer decomposes code skeleton & measures complexity.   │
 │ STEP 5: Test Harness executes inputs (N=10 to N=10,000) under 64MB cap.│
 │ STEP 6: Cryptographic Execution Receipt is generated & signed.         │
-│ STEP 7: BMONI Oracle triggers instant (<2s) payout to Virtual Card.   │
+│ STEP 7: BANK Oracle triggers instant (<2s) payout to Virtual Card.   │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -137,7 +137,7 @@ const executionTimeout = setTimeout(() => {
 
 ---
 
-## 4. The BMONI Smart Escrow & Payment Engine
+## 4. The BANK Smart Escrow & Payment Engine
 
 ### The Escrow Lifecycle (Zero Human Delays):
 
@@ -155,18 +155,18 @@ const executionTimeout = setTimeout(() => {
 [Sandbox Signs Attestation Digest]                [Funds Return to Employer]
             │
             ▼
-[BMONI Oracle Calls Release API]
+[BANK Oracle Calls Release API]
             │
             ▼
 [Balance Credits Student Mastercard] (<2 seconds)
 ```
 
-### BMONI State Machine Definitions:
+### BANK State Machine Definitions:
 1. `DRAFT`: Task created by employer; funds not yet committed.
-2. `ESCROW_LOCKED`: Capital deposited ($150 USDC + 2.5% protocol fee). BMONI vault holds funds under smart contract lock.
+2. `ESCROW_LOCKED`: Capital deposited ($150 USDC + 2.5% protocol fee). BANK vault holds funds under smart contract lock.
 3. `EVALUATING`: Submission received; sandbox is currently executing assertions.
 4. `VERIFIED_PASS`: All 3 assertion suites passed; cryptographic hash generated.
-5. `SETTLED`: BMONI payment API confirmed; virtual Mastercard credited; milestone closed.
+5. `SETTLED`: BANK payment API confirmed; virtual Mastercard credited; milestone closed.
 6. `REFUNDED`: No valid solution submitted within deadline; 100% of principal returned to employer.
 
 ---
@@ -180,7 +180,7 @@ const executionTimeout = setTimeout(() => {
   * Task Card:
     * Title: *"Build High-Throughput Memory Cache"*
     * Reward: `$150.00 USDC` (`₦240,000 cNGN`)
-    * Sponsor: `BMONI FinTech Labs`
+    * Sponsor: `BANK FinTech Labs`
     * Constraint: `O(N log N) • Max 50ms • JavaScript`
     * Status: `Active Escrow (1 Funded Spot)`
     * Button: `[Accept & Open Terminal]`
@@ -193,7 +193,7 @@ const executionTimeout = setTimeout(() => {
 ┌────────────────────────────────────────────────────────────────────────────────────────┐
 │ [← Back to Tasks]   Task #104: High-Throughput Cache ($150 USDC)      [Submit Solution]│
 ├────────────────────────────┬───────────────────────────────┬───────────────────────────┤
-│ TASK REQUIREMENTS          │ MONACO CODE EDITOR            │ LIVE BMONI VIRTUAL CARD   │
+│ TASK REQUIREMENTS          │ MONACO CODE EDITOR            │ LIVE BANK VIRTUAL CARD   │
 │ - Problem description      │ - Language dropdown (JS/TS)   │ - Metallic 3D card        │
 │ - Input/Output examples    │ - Code editor area            │ - Real-time balance       │
 │ - Memory: Max 64MB         │ - [Run Tests] (Ctrl+Enter)    │ - Flip for CVV / Details  │
@@ -215,7 +215,7 @@ const executionTimeout = setTimeout(() => {
    * Test 1 (Basic assertions): Instant (5ms).
    * Test 2 (Boundary edge cases): Instant (8ms).
    * Test 3 (Stress dataset $N=10,000$): Takes ~25ms; confirms asymptotic curve.
-3. **The BMONI Virtual Mastercard**:
+3. **The BANK Virtual Mastercard**:
    * Default balance: `$0.00 USDC`.
    * On Successful Submit: The card pulses with an emerald green border; the numbers roll up dynamically from `$0.00` to `$150.00 USDC` with confetti feedback.
 
@@ -226,7 +226,7 @@ const executionTimeout = setTimeout(() => {
 * **Key Elements**:
   * Task Creation Form: Title, Description, Reward input ($), and Test Assertion Configurator.
   * Escrow Deposit Modal: Displays breakdown: `$150.00 Payout` + `$3.75 Platform Fee (2.5%)` = `$153.75 Total`.
-  * Candidate Review Ledger: Lists submitted students, NACOS Chapter ID, AST originality score, and test execution duration.
+  * Candidate Review Ledger: Lists submitted students, Kilikoro Guild ID, AST originality score, and test execution duration.
 
 ---
 
@@ -234,7 +234,7 @@ const executionTimeout = setTimeout(() => {
 * **Purpose**: Anyone (recruiter, company, judge) can verify a student's skills cryptographically.
 * **Key Elements**:
   * Search bar for Student ID or Attestation Hash.
-  * Certificate Card: Displays student name, university chapter, algorithm verified, AST originality rating, and digital signature from `NACOS-ROOT-KEY`.
+  * Certificate Card: Displays student name, university chapter, algorithm verified, AST originality rating, and digital signature from `Kilikoro-ROOT-KEY`.
 
 ---
 
@@ -260,11 +260,11 @@ my-task-104/
      [Complexity]   Dynamic scaling N=10..10000... [OK] O(N log N)
      [Assertions]   3/3 Test Suites Passed (32ms, 18.2MB Heap)
      ```
-4. `kilikoro submit` $\to$ Signs bundle, sends digest to verifier, releases BMONI escrow:
+4. `kilikoro submit` $\to$ Signs bundle, sends digest to verifier, releases BANK escrow:
    ```bash
    [Kilikoro]     Submitting verified solution...
    [Attestation]  Receipt signed: 0x4f8a...92b1
-   [BMONI Escrow] Payout released! $150.00 USDC credited to Virtual Card (**** 4892)
+   [BANK Escrow] Payout released! $150.00 USDC credited to Virtual Card (**** 4892)
    ```
 
 ---
@@ -282,7 +282,7 @@ my-task-104/
 | **Hostile Code: Memory Explosion** | Student submits `new Array(1e9)`. | Sandbox enforces a 64MB memory heap ceiling; gracefully catches out-of-memory error without browser tab crashing. |
 | **Hostile Code: System Tampering** | Code tries to run `eval()`, `fetch()`, or access `localStorage`. | Stripped execution scope removes all web APIs and evaluates inside a locked proxy sandbox. |
 | **ChatGPT Copy-Paste** | Student renames ChatGPT variable names to appear original. | AST Normalization canonicalizes all variable identifiers, and dynamic input stress tests reveal brute-force $O(N^2)$ algorithmic structures. |
-| **Client-Side DevTools Tampering** | Student alters frontend JavaScript variables to fake a passing score. | BMONI Escrow Oracle requires an authentic cryptographic digest signed by the execution engine. Client state modification is rejected by the smart contract. |
+| **Client-Side DevTools Tampering** | Student alters frontend JavaScript variables to fake a passing score. | BANK Escrow Oracle requires an authentic cryptographic digest signed by the execution engine. Client state modification is rejected by the smart contract. |
 | **Replay Attack on Escrow** | Hacker intercepts payout API call and attempts to send it twice. | Every milestone release burns a single-use cryptographic Nonce. Replay requests are immediately rejected as duplicate transactions. |
 
 ---

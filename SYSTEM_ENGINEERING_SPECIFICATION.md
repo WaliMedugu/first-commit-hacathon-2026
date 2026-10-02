@@ -12,8 +12,8 @@ Kilikoro is composed of 4 core building blocks that communicate seamlessly:
 ├────────────────────────────────────────────────────────────────────────┤
 │ 1. CLIENT INTERFACES: Web Hub (Browser SPA) & Developer CLI (Node.js)  │
 │ 2. EXECUTION ENGINE: Isolated Worker Sandbox + Acorn AST Normalizer    │
-│ 3. ESCROW STATE MACHINE: BMONI Stablecoin Vault & Release Oracle       │
-│ 4. TRUST REGISTRY: NACOS Chapter Cryptographic Signature Attestations  │
+│ 3. ESCROW STATE MACHINE: BANK Stablecoin Vault & Release Oracle       │
+│ 4. TRUST REGISTRY: Kilikoro Guild Cryptographic Signature Attestations  │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -26,12 +26,12 @@ Kilikoro is composed of 4 core building blocks that communicate seamlessly:
 ### Screen 1: The Dual-Portal Navigation & Header
 * **Fixed Header (Top Bar)**:
   * **Logo**: `Kilikoro` icon (obsidian polygon with a glowing cyan center). Clicking always returns to the main dashboard.
-  * **Network Status Pill**: Shows `BMONI Testnet • 12ms latency` (green dot if online, pulsing amber if offline/reconnecting).
+  * **Network Status Pill**: Shows `BANK Testnet • 12ms latency` (green dot if online, pulsing amber if offline/reconnecting).
   * **Portal Switcher Tabs**:
     * Tab 1: `Student Workspace` (Default for devs)
     * Tab 2: `Employer Cockpit` (For task creators and bounties)
     * Tab 3: `Public Verifier` (For recruiters and public audits)
-  * **Student Profile Pill**: Displays NACOS Student ID (`UNILAG-CS-2026-0482`), university crest icon, and verified skill tier badge (`Level 3: Algorithms & Systems`).
+  * **Student Profile Pill**: Displays Kilikoro Student ID (`UNILAG-CS-2026-0482`), university crest icon, and verified skill tier badge (`Level 3: Algorithms & Systems`).
   * **Theme / Sound Toggle**: Mute/unmute subtle audio clicks on successful code compile and payment unlock.
 
 ---
@@ -42,7 +42,7 @@ Kilikoro is composed of 4 core building blocks that communicate seamlessly:
 ┌────────────────────────────────────────────────────────────────────────────────────┐
 │ [← Back to Tasks]  Bounty #104: Optimize Cache Expiry ($150 USDC)   [Submit Code] │
 ├──────────────────────────┬─────────────────────────────────┬───────────────────────┤
-│ LEFT: TASK SPECIFICATION │ CENTER: MONACO CODE EDITOR      │ RIGHT: BMONI CARD &   │
+│ LEFT: TASK SPECIFICATION │ CENTER: MONACO CODE EDITOR      │ RIGHT: BANK CARD &   │
 │ - Problem Description    │ - Language selector (JS/TS)     │ TEST RESULTS          │
 │ - Input / Output samples │ - Line numbers, syntax theme    │ - 3D Virtual Card     │
 │ - Complexity Constraint: │ - "Run Local Test" button       │ - Test Assertion Bars │
@@ -71,7 +71,7 @@ Kilikoro is composed of 4 core building blocks that communicate seamlessly:
    * **Status Banner**: Displays current phase (`Ready`, `Executing...`, `Passed`, `Failed`).
    * **Assertion Meters**: 3 distinct visual bars (Test 1: Basic Input, Test 2: Edge Cases, Test 3: Large Dataset $N=10,000$).
    * **Console Log Output**: Styled like a UNIX terminal (black background, monospace font) displaying `stdout`, memory consumption (`Heap: 18.4 MB`), and wall-clock execution time (`Time: 32ms`).
-5. **Right Panel: The BMONI Virtual Mastercard**:
+5. **Right Panel: The BANK Virtual Mastercard**:
    * **Visual Styling**: Sleek metallic brushed titanium card with gold chip and Mastercard brand logos.
    * **Balance Display**: Live balance in USDC and cNGN with an eye toggle (Show/Hide balance).
    * **Card Controls**:
@@ -91,21 +91,21 @@ Kilikoro is composed of 4 core building blocks that communicate seamlessly:
 2. **Escrow Lock Modal**:
    * **Trigger**: Clicking `[Deposit & Lock Escrow]`.
    * **Details Shown**: Milestone Payout ($150.00) + Kilikoro 2.5% Protocol Fee ($3.75) = Total Locked: `$153.75 USDC`.
-   * **Simulation / API Bridge**: Shows BMONI wallet connection button. When clicked, demonstrates a simulated 2-second cryptographic signature locking funds into escrow.
+   * **Simulation / API Bridge**: Shows BANK wallet connection button. When clicked, demonstrates a simulated 2-second cryptographic signature locking funds into escrow.
    * **Escrow Status Pill**: Changes from `DRAFT` to `ESCROW LOCKED` with a gold padlock icon.
 3. **Live Submissions & Candidate Review Table**:
-   * **Columns**: Student Name, NACOS Chapter, Submission Time, AST Originality Score (%), Test Pass Ratio (12/12), Cryptographic Hash, Actions.
+   * **Columns**: Student Name, Kilikoro Guild, Submission Time, AST Originality Score (%), Test Pass Ratio (12/12), Cryptographic Hash, Actions.
    * **Audit Modal**: Clicking any student row opens a side sheet showing their code's AST syntax breakdown, memory usage chart, and verification certificate.
 
 ---
 
 ### Screen 4: Public Verifier (Recruiter / Public Proof-of-Skill)
 * **Search Bar**: Centered search input supporting:
-  * Student NACOS ID (e.g., `NACOS/UNILAG/2026/0482`)
+  * Student Kilikoro ID (e.g., `Kilikoro/UNILAG/2026/0482`)
   * Cryptographic Hash (e.g., `0x8f2a...`)
   * QR Code Scan (activates laptop/phone camera to scan physical student badge).
 * **Verification Certificate Display**:
-  * Issued by: `NACOS National Root Key • Chapter Node #04 (UNILAG)`
+  * Issued by: `Kilikoro National Root Key • Chapter Node #04 (UNILAG)`
   * Candidate: Verified Student Builder
   * Authenticity Score: `99.2% (Deterministic Human Syntax)`
   * Algorithmic Speed Grade: `Grade A (Asymptotic O(N log N))`
@@ -121,11 +121,11 @@ For developers working inside VS Code or Linux/macOS/Windows terminals:
 
 | Command | Arguments / Flags | What It Does | Error / Resilience Handling |
 | :--- | :--- | :--- | :--- |
-| `kilikoro auth login` | `--nacos-id <id>`, `--key <key>` | Authenticates developer and binds BMONI wallet address to `~/.kilikoro/config.json`. | Flags invalid ID format; securely prompts for password/key with hidden typing. |
+| `kilikoro auth login` | `--nacos-id <id>`, `--key <key>` | Authenticates developer and binds BANK wallet address to `~/.kilikoro/config.json`. | Flags invalid ID format; securely prompts for password/key with hidden typing. |
 | `kilikoro pull` | `<task-id>` | Creates a local directory `./task-<id>/` containing `problem.md`, `solution.js`, and `test_harness.js`. | If directory already exists, warns before overwriting; falls back to offline cache if network fails. |
 | `kilikoro test` | `--profile`, `--verbose` | Runs the local sandbox: compiles code, builds AST, measures memory heap, runs edge test cases. | Catches infinite loops after 3,000ms; prints line-by-line syntax errors with code snippets. |
-| `kilikoro submit` | `--message <commit-msg>` | Signs the code bundle cryptographically, dispatches to Kilikoro verifier, triggers BMONI escrow payout. | Validates that local tests pass first; if failed, rejects submission locally without wasting network bandwidth. |
-| `kilikoro balance` | None | Queries live BMONI wallet balance and virtual card status. | Displays cached balance if offline with a "last updated 5 mins ago" warning. |
+| `kilikoro submit` | `--message <commit-msg>` | Signs the code bundle cryptographically, dispatches to Kilikoro verifier, triggers BANK escrow payout. | Validates that local tests pass first; if failed, rejects submission locally without wasting network bandwidth. |
+| `kilikoro balance` | None | Queries live BANK wallet balance and virtual card status. | Displays cached balance if offline with a "last updated 5 mins ago" warning. |
 
 ---
 
@@ -179,9 +179,9 @@ Hackathons and freelance platforms suffer from cheat attempts. Here is how Kilik
   3. **Dynamic Asymptotic Stress-Testing**: The sandbox runs the function with $N=10, 100, 1000, 10000$. If a student uses an easy $O(N^2)$ brute-force solution copied from AI, the time curve spikes exponentially and fails the $O(N \log N)$ benchmark requirement.
 
 ### Threat 3: Client-Side Tampering (Editing Frontend JS to "Fake" a Pass)
-* **Attack**: A tech-savvy student opens Chrome DevTools, edits the JavaScript variables, and tries to trigger the BMONI payout directly.
+* **Attack**: A tech-savvy student opens Chrome DevTools, edits the JavaScript variables, and tries to trigger the BANK payout directly.
 * **Defense**:
-  * The frontend is only a display. The **BMONI Escrow Release Oracle** requires a cryptographically signed execution receipt produced by the sandbox engine. If the signature doesn't match the test digest, the escrow smart contract rejects the payout call instantly.
+  * The frontend is only a display. The **BANK Escrow Release Oracle** requires a cryptographically signed execution receipt produced by the sandbox engine. If the signature doesn't match the test digest, the escrow smart contract rejects the payout call instantly.
 
 ### Threat 4: Replay Attacks (Trying to claim the same bounty payout twice)
 * **Attack**: Intercepting a valid payout API request and sending it again to get double payment.
@@ -235,7 +235,7 @@ Hackathons and freelance platforms suffer from cheat attempts. Here is how Kilik
 ```json
 {
   "attestationId": "attest-77492-unilag",
-  "developer": "Chidi Okonkwo (NACOS/UNILAG/2026/0482)",
+  "developer": "Chidi Okonkwo (Kilikoro/UNILAG/2026/0482)",
   "chapterKey": "0x4b9f...unilag_node_01",
   "taskCompleted": "task-bmoni-104",
   "metrics": {
@@ -244,7 +244,7 @@ Hackathons and freelance platforms suffer from cheat attempts. Here is how Kilik
     "complexityVerified": "O(N log N)",
     "originalityScore": 98.4
   },
-  "payoutStatus": "SETTLED_TO_BMONI_CARD",
+  "payoutStatus": "SETTLED_TO_BANK_CARD",
   "signature": "MEQCIG9f...3d91kZ"
 }
 ```

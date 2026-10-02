@@ -1244,7 +1244,7 @@ function cacheResolver(entries, threshold) {
       matched = {
         id: "nacos-" + Date.now().toString(36),
         name: "Wali Medugu",
-        email: `${cleanId.toLowerCase().replace(/[^a-z0-9]/g, "")}@nacos.org.ng`,
+        email: `${cleanId.toLowerCase().replace(/[^a-z0-9]/g, "")}@kilikoro.dev`,
         role: "personal",
         university: cleanId.startsWith("UNILAG") ? "University of Lagos (UNILAG)" : "Kilikoro National Chapter",
         nacosId: cleanId,
@@ -2025,7 +2025,7 @@ function cacheResolver(entries, threshold) {
       const payload = {
         candidateName,
         candidateDid,
-        repoUrl: audit.repo || "https://github.com/nacos/candidate",
+        repoUrl: audit.repo || "https://github.com/walimedugu/candidate",
         score,
         securityStatus: audit.securityStatus || "Clean Git History",
         errorHandling: audit.errorHandlingRating || "Robust Guards",
@@ -2599,7 +2599,7 @@ function cacheResolver(entries, threshold) {
       const localUser = {
         id: "usr-" + Date.now().toString(36),
         name: ident.includes("@") ? ident.split("@")[0].replace(/[._]/g, " ").replace(/\b\w/g, l => l.toUpperCase()) : "Wali Medugu",
-        email: ident.includes("@") ? ident : `${ident.toLowerCase()}@nacos.org.ng`,
+        email: ident.includes("@") ? ident : `${ident.toLowerCase()}@kilikoro.dev`,
         role: "personal",
         university: "University of Lagos (UNILAG)",
         nacosId: !ident.includes("@") ? ident : "UNILAG-CS-2026-0482",

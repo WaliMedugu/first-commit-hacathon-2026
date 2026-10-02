@@ -456,7 +456,7 @@ async function handleRequest(req, res) {
       const db = readDb();
       let targetEmail = identifier.trim();
 
-      // If user typed NACOS ID or Name, resolve email from DB
+      // If user typed Kilikoro ID or Name, resolve email from DB
       if (!targetEmail.includes("@")) {
         const foundUser = db.users.find(u => 
           (u.nacosId && u.nacosId.toLowerCase() === targetEmail.toLowerCase()) ||
@@ -866,7 +866,7 @@ async function handleRequest(req, res) {
       .map(u => ({
         name: u.name,
         university: u.studentCredentials?.university || u.university || "Kilikoro Guild",
-        nacosId: u.studentCredentials?.nacosId || u.nacosId || "NACOS-2026-NODE",
+        nacosId: u.studentCredentials?.nacosId || u.nacosId || "Kilikoro-2026-NODE",
         github: u.studentCredentials?.github || u.github || "",
         balanceUsdc: u.balanceUsdc || 0,
         bmoniConnected: Boolean(u.bmoniConnected)
@@ -1039,7 +1039,7 @@ async function handleRequest(req, res) {
       const certificate = {
         id: certId,
         candidateName: cleanCandidate,
-        nacosId: String(nacosId || "NACOS-VERIFIED-MEMBER").trim().slice(0, 50),
+        nacosId: String(nacosId || "Kilikoro-VERIFIED-MEMBER").trim().slice(0, 50),
         repoUrl: cleanRepo,
         score: Number(score) || 94,
         securityStatus: String(securityStatus || "Clean Git History (0 Secrets)").trim(),
@@ -1106,7 +1106,7 @@ async function handleRequest(req, res) {
   if ((pathname.startsWith("/api/badge") || pathname === "/api/badge") && req.method === "GET") {
     const certParam = pathname.replace(/^\/api\/badge\/?/, "").trim() || parsedUrl.searchParams.get("cert") || "";
     let score = parseInt(parsedUrl.searchParams.get("score") || "94", 10);
-    let title = parsedUrl.searchParams.get("title") || "NACOS";
+    let title = parsedUrl.searchParams.get("title") || "Kilikoro";
 
     if (certParam) {
       const db = readDb();

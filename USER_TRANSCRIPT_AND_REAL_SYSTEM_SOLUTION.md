@@ -25,7 +25,7 @@
 
 ---
 
-### Audio File 2: Public vs. Private Milestone Contracts & BMONI
+### Audio File 2: Public vs. Private Milestone Contracts & BANK
 > *"So yeah, that's how we can solve that problem. That's one way.*
 > 
 > *As for the terminal GitHub repo one, we can make it a terminal command: `kilikoro [something]` and then it will run a full analysis on that GitHub repo for the company.*
@@ -41,9 +41,9 @@
 > 
 > *If it's private, then immediately the person does the job, it has all of the features and it has been well made according to the specifications of the contractor, the money is immediately dispatched.*
 > 
-> *As for the bank transfer fees, because we're using BMONI, the bank transfer fees won't be as much, that kind of thing that, you know, we talked about.*
+> *As for the bank transfer fees, because we're using BANK, the bank transfer fees won't be as much, that kind of thing that, you know, we talked about.*
 > 
-> *As for 'companies want to hire developers, but resumes are filled with copy-pasted ChatGPT code', we still need to find a way to integrate BMONI into this: BMONI and NACOS into the hiring student developers part. I know you mentioned it before, but I need to make sure that it is revised.*
+> *As for 'companies want to hire developers, but resumes are filled with copy-pasted ChatGPT code', we still need to find a way to integrate BANK into this: BANK and Kilikoro into the hiring student developers part. I know you mentioned it before, but I need to make sure that it is revised.*
 > 
 > *Now, everything that I've said, just put it in an MD file, like the transcript of what I've said. Put it in an MD file, and under that, put the solution that you've thought of. Yeah."*
 
@@ -67,8 +67,8 @@ Kilikoro is a **dual-tool system** built specifically for hiring companies and N
 |  1. CANDIDATE VERIFIER (CLI & WEB)         |  2. CONTRACT ESCROW (PUBLIC & PRIVATE)|
 |  - Real GitHub Repo Analyzer               |  - Private Contracts (Direct Hire)    |
 |  - Deep Resume & Portfolio Fact-Checker    |  - Public Bounties (Open Challenges)  |
-|  - Powered by Claude 3.7 API & AST Engine  |  - Instant BMONI Card Settlement      |
-|  - NACOS Student ID Verification           |  - Low Transaction Fees (cNGN / USD)  |
+|  - Powered by Claude 3.7 API & AST Engine  |  - Instant BANK Card Settlement      |
+|  - Kilikoro Student ID Verification           |  - Low Transaction Fees (cNGN / USD)  |
 +-----------------------------------------------------------------------------------+
 ```
 
@@ -85,10 +85,10 @@ Kilikoro is a **dual-tool system** built specifically for hiring companies and N
      - Produces a clear **Integrity & Skill Score (0–100%)**.
 
 2. **Web Resume Fact-Checker (Employer Portal)**:
-   - Employers upload a PDF/text resume or paste a student's GitHub link and NACOS Matric number.
+   - Employers upload a PDF/text resume or paste a student's GitHub link and Kilikoro Matric number.
    - Claude API extracts claimed skills, project links, and repositories.
    - Verifies links, tests project repositories, and generates a simple, 1-page **Verification Report**:
-     - *NACOS Verification*: Confirms active student status.
+     - *Kilikoro Verification*: Confirms active student status.
      - *Repo Authenticity*: Verifies the student actually wrote the code (not just forked/cloned).
      - *Skill Level*: Evaluates algorithm structure, error handling, and clean code.
 
@@ -100,9 +100,9 @@ Kilikoro is a **dual-tool system** built specifically for hiring companies and N
    - **Private Direct Contract**: An employer hires a specific student directly. The project is locked between the two parties (hidden from public view). When the student delivers the work and tests pass, funds release instantly.
    - **Public Bounty**: An open competition where any verified student can solve a milestone and claim the reward upon automated verification.
 
-2. **BMONI Stablecoin Escrow Rails**:
+2. **BANK Stablecoin Escrow Rails**:
    - Employer locks funds in escrow (USDC / cNGN).
-   - Once automated criteria or client sign-off is complete, funds disburse in **under 3 seconds** to the student's **BMONI Virtual Mastercard**.
+   - Once automated criteria or client sign-off is complete, funds disburse in **under 3 seconds** to the student's **BANK Virtual Mastercard**.
    - Zero international wire delays, zero high bank transfer cuts.
 
 ---
@@ -119,8 +119,8 @@ Kilikoro is a **dual-tool system** built specifically for hiring companies and N
   |-- Clean, modern UI (GitHub + Linear simplicity, Claude color palette)
   |-- Screen 1: Candidate Verification (Resume Upload & GitHub Scanner)
   |-- Screen 2: Contracts & Escrow (Public Bounties vs. Private Direct Hire)
-  |-- Screen 3: BMONI Wallet & Virtual Mastercard
-  `-- Screen 4: Verified Student Profiles (NACOS ID Badge)
+  |-- Screen 3: BANK Wallet & Virtual Mastercard
+  `-- Screen 4: Verified Student Profiles (Kilikoro ID Badge)
 
 [Phase 3] Live Verification & Testing
   |-- Test real GitHub repo scanning
