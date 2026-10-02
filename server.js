@@ -875,7 +875,67 @@ async function handleRequest(req, res) {
   }
 
   // 8. AUDITS (GET & POST)
-  if (pathname === "/api/audits") {
+  
+    // =========================================================================
+    // 8B. LIVE CLAUDE AI AUDIT & RESUME VERIFICATION PROXY
+    // =========================================================================
+    if (pathname === "/api/ai/audit" && req.method === "POST") {
+      try {
+        const payload = await parseJsonBody(req);
+        const { repoUrl, codeSnippet, repoTree, resumeText, systemPrompt, userPrompt } = payload;
+        const apiKey = process.env.ANTHROPIC_API_KEY;
+
+        if (apiKey) {
+          const https = require("https");
+          const postData = JSON.stringify({
+            model: "claude-haiku-4-5-20251001",
+            max_tokens: 1500,
+            system: systemPrompt || "You are Kilikoro's Chief Technical Auditor evaluating developer repositories for truthfulness and production competence. Output valid JSON only.",
+            messages: [{ role: "user", content: userPrompt || ("Audit repository: " + (repoUrl || "")) }]
+          });
+
+          const aiReq = https.request("https://api.anthropic.com/v1/messages", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "x-api-key": apiKey,
+              "anthropic-version": "2023-06-01"
+            }
+          }, (aiRes) => {
+            let body = "";
+            aiRes.on("data", chunk => body += chunk);
+            aiRes.on("end", () => {
+              try {
+                const parsed = JSON.parse(body);
+                const rawText = parsed.content?.[0]?.text || "";
+                const jsonMatch = rawText.match(/\{[\s\S]*\}/);
+                if (jsonMatch) {
+                  const auditResult = JSON.parse(jsonMatch[0]);
+                  return sendJson(res, 200, { success: true, audit: auditResult, provider: "claude-haiku-4.5" });
+                }
+                return sendJson(res, 200, { success: true, raw: rawText, provider: "claude-haiku-4.5" });
+              } catch (parseErr) {
+                return sendJson(res, 500, { error: "Failed to parse AI response: " + parseErr.message });
+              }
+            });
+          });
+
+          aiReq.on("error", (e) => {
+            return sendJson(res, 500, { error: "AI proxy error: " + e.message });
+          });
+
+          aiReq.write(postData);
+          aiReq.end();
+          return;
+        } else {
+          return sendJson(res, 400, { error: "No ANTHROPIC_API_KEY found on server." });
+        }
+      } catch (err) {
+        return sendJson(res, 500, { error: "AI audit route failed: " + err.message });
+      }
+    }
+
+    if (pathname === "/api/audits") {
     const db = readDb();
     if (req.method === "GET") {
       return sendJson(res, 200, db.audits);
