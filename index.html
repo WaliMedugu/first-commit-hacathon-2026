@@ -1087,7 +1087,7 @@ threshold = 20</pre>
   <!-- MODAL: USER ACCOUNT & ROLE MANAGER                                        -->
   <!-- ========================================================================= -->
   <div class="modal-overlay" id="userAccountModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 1000; align-items: center; justify-content: center; padding: 1rem;">
-    <div style="background: var(--bg-primary); border: 1px solid var(--border-medium); border-radius: 12px; width: 100%; max-width: 540px; max-height: 90vh; overflow-y: auto; padding: 1.75rem; box-shadow: var(--shadow-lg);">
+    <div style="background: var(--bg-primary); border: 1px solid var(--border-medium); border-radius: 12px; width: 100%; max-width: 480px; max-height: 90vh; overflow-y: auto; padding: 1.75rem; box-shadow: var(--shadow-lg);">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
         <div style="display: flex; align-items: center; gap: 0.75rem;">
           <div class="user-avatar" id="accountModalAvatar" style="width: 42px; height: 42px; font-size: 1.1rem;">WM</div>
@@ -1448,171 +1448,167 @@ threshold = 20</pre>
   <!-- ========================================================================= -->
   <!-- MODAL: KILIKORO PROOF-OF-COMPETENCE OFFICIAL CERTIFICATE                  -->
   <!-- ========================================================================= -->
-  <div class="modal-overlay" id="certificateModal" style="display: none; position: fixed; inset: 0; z-index: 1050; align-items: center; justify-content: center; overflow-y: auto; padding: 1.5rem;">
+  <div class="modal-overlay" id="certificateModal" style="display: none; position: fixed; inset: 0; z-index: 1050; align-items: center; justify-content: center; overflow-y: auto; padding: 1rem;">
     <div class="certificate-modal-sheet" style="position: relative;">
       
       <!-- Top Action Bar (Print / LinkedIn / Copy URL / Close) -->
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border-subtle); padding-bottom: 0.75rem; flex-wrap: wrap; gap: 0.75rem;">
-        <div style="display: flex; align-items: center; gap: 0.5rem;">
-          <span class="status-badge" style="background: var(--status-emerald-subtle); color: var(--status-emerald);">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.85rem; border-bottom: 1px solid var(--border-subtle); padding-bottom: 0.5rem; flex-wrap: wrap; gap: 0.5rem;">
+        <div style="display: flex; align-items: center; gap: 0.4rem;">
+          <span class="status-badge" style="background: var(--status-emerald-subtle); color: var(--status-emerald); font-size: 0.7rem; padding: 0.2rem 0.5rem;">
             <span class="status-dot"></span> Kilikoro Verified Credential
           </span>
-          <span style="font-size: 0.78rem; color: var(--text-muted);" id="certTimestamp">Issued: 2026-09-29</span>
+          <span style="font-size: 0.72rem; color: var(--text-muted);" id="certTimestamp">Issued: 2026-09-29</span>
         </div>
-        <div class="cert-modal-actions" style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-          <button class="btn btn-secondary" onclick="app.exportCertificatePNG()" style="font-size: 0.8rem; background: rgba(217, 119, 87, 0.15); border-color: rgba(217, 119, 87, 0.4); color: var(--accent-terracotta);">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+        <div class="cert-modal-actions" style="display: flex; gap: 0.35rem; flex-wrap: wrap;">
+          <button class="btn btn-secondary" onclick="app.exportCertificatePNG()" style="font-size: 0.72rem; padding: 0.3rem 0.55rem; background: rgba(217, 119, 87, 0.15); border-color: rgba(217, 119, 87, 0.4); color: var(--accent-terracotta);">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
             Export PNG
           </button>
-          <button class="btn btn-secondary" onclick="app.exportCertificatePDF()" style="font-size: 0.8rem; background: rgba(16, 185, 129, 0.15); border-color: rgba(16, 185, 129, 0.4); color: #34d399;">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+          <button class="btn btn-secondary" onclick="app.exportCertificatePDF()" style="font-size: 0.72rem; padding: 0.3rem 0.55rem; background: rgba(16, 185, 129, 0.15); border-color: rgba(16, 185, 129, 0.4); color: #34d399;">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
             Export PDF
           </button>
-          <button class="btn btn-secondary" onclick="app.copyCertPublicUrl()" style="font-size: 0.8rem;">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+          <button class="btn btn-secondary" onclick="app.copyCertPublicUrl()" style="font-size: 0.72rem; padding: 0.3rem 0.55rem;">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
             Copy Link
           </button>
-          <button class="btn btn-secondary" onclick="app.addCertToLinkedIn()" style="font-size: 0.8rem; background: rgba(10, 102, 194, 0.15); border-color: rgba(10, 102, 194, 0.4); color: #70b5f9;">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.6a1.65 1.65 0 0 0-1.66 1.66 1.66 1.66 0 0 0 1.66 1.65 1.66 1.66 0 0 0 1.66-1.65A1.66 1.66 0 0 0 7.83 6.6z"/></svg>
+          <button class="btn btn-secondary" onclick="app.addCertToLinkedIn()" style="font-size: 0.72rem; padding: 0.3rem 0.55rem; background: rgba(10, 102, 194, 0.15); border-color: rgba(10, 102, 194, 0.4); color: #70b5f9;">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.6a1.65 1.65 0 0 0-1.66 1.66 1.66 1.66 0 0 0 1.66 1.65 1.66 1.66 0 0 0 1.66-1.65A1.66 1.66 0 0 0 7.83 6.6z"/></svg>
             LinkedIn
           </button>
-          <button class="btn btn-secondary" onclick="app.closeCertificateModal()" style="font-size: 0.8rem;">✕ Close</button>
+          <button class="btn btn-secondary" onclick="app.closeCertificateModal()" style="font-size: 0.72rem; padding: 0.3rem 0.55rem;">✕ Close</button>
         </div>
       </div>
 
-      <!-- Public Verification Banner (Shown when loaded via public ?cert= link or verified) -->
-      <div id="certPublicVerificationBanner" style="display: none; background: rgba(15, 118, 110, 0.15); border: 1px solid var(--status-emerald); border-radius: 8px; padding: 0.65rem 1rem; margin-bottom: 1.25rem; font-size: 0.82rem; color: var(--status-emerald); align-items: center; justify-content: space-between;">
-        <div style="display: flex; align-items: center; gap: 0.5rem;">
+      <!-- Public Verification Banner -->
+      <div id="certPublicVerificationBanner" style="display: none; background: rgba(15, 118, 110, 0.15); border: 1px solid var(--status-emerald); border-radius: 6px; padding: 0.5rem 0.75rem; margin-bottom: 0.75rem; font-size: 0.75rem; color: var(--status-emerald); align-items: center; justify-content: space-between;">
+        <div style="display: flex; align-items: center; gap: 0.4rem;">
           <span class="status-dot" style="background: var(--status-emerald);"></span>
-          <span><strong>Public Verification Active:</strong> Cryptographically verified record hosted on Kilikoro Protocol.</span>
+          <span><strong>Public Verification Active:</strong> Cryptographically verified on Kilikoro Protocol.</span>
         </div>
-        <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted);" id="certPublicStatusTag">STATUS: IMMUTABLE</span>
+        <span style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-muted);" id="certPublicStatusTag">STATUS: IMMUTABLE</span>
       </div>
 
       <!-- Institutional Crest & Header -->
-      <div style="text-align: center; margin-bottom: 1.5rem;">
-        <div style="display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: 50%; background: var(--accent-terracotta-subtle); border: 1px solid var(--accent-terracotta); color: var(--accent-terracotta); font-weight: 700; font-size: 1.2rem; margin-bottom: 0.5rem;">
+      <div style="text-align: center; margin-bottom: 0.85rem;">
+        <div style="display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 50%; background: var(--accent-terracotta-subtle); border: 1px solid var(--accent-terracotta); color: var(--accent-terracotta); font-weight: 700; font-size: 1rem; margin-bottom: 0.25rem;">
           K
         </div>
-        <div style="font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); font-weight: 600;">
+        <div style="font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); font-weight: 600;">
           Kilikoro Autonomous Verification Protocol
         </div>
-        <div style="font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.08em; text-transform: uppercase;">
+        <div style="font-size: 0.62rem; color: var(--text-muted); letter-spacing: 0.06em; text-transform: uppercase;">
           National Directorate for Software Competence & Industry Accreditation
         </div>
-        <h1 style="font-family: var(--font-editorial); font-size: 1.75rem; color: var(--text-primary); margin-top: 0.75rem; letter-spacing: 0.02em;">
+        <h1 style="font-family: var(--font-editorial); font-size: 1.35rem; color: var(--text-primary); margin-top: 0.35rem; margin-bottom: 0; letter-spacing: 0.02em;">
           Kilikoro Verification Certificate
         </h1>
-        <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent-terracotta); margin-top: 0.25rem;" id="certId">
+        <div style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent-terracotta); margin-top: 0.15rem;" id="certId">
           KILI-CERT-2026-SHA-8F29A10C
         </div>
       </div>
 
       <!-- Body / Attestation Statement -->
-      <div style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6; text-align: center; margin-bottom: 1.5rem;">
+      <div style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.45; text-align: center; margin-bottom: 0.85rem;">
         This document certifies that the software engineer identified below has undergone automated AST static analysis, runtime algorithmic complexity benchmarking, and cryptographic secret hygiene auditing via the <b>Kilikoro Protocol</b>.
       </div>
 
       <!-- Candidate & Codebase Metadata Grid -->
-      <div style="background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 1rem 1.25rem; margin-bottom: 1.25rem;">
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; font-size: 0.82rem;">
+      <div style="background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 0.65rem 0.85rem; margin-bottom: 0.75rem;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; font-size: 0.75rem;">
           <div>
-            <span style="color: var(--text-muted); display: block; font-size: 0.7rem; text-transform: uppercase;">Candidate Name</span>
+            <span style="color: var(--text-muted); display: block; font-size: 0.65rem; text-transform: uppercase;">Candidate Name</span>
             <span style="font-weight: 600; color: var(--text-primary);" id="certCandidateName">--</span>
           </div>
           <div>
-            <span style="color: var(--text-muted); display: block; font-size: 0.7rem; text-transform: uppercase;">Candidate Member DID / Matric</span>
+            <span style="color: var(--text-muted); display: block; font-size: 0.65rem; text-transform: uppercase;">Candidate Member DID / Matric</span>
             <span style="font-family: var(--font-mono); color: var(--accent-terracotta);" id="certCandidateDid">--</span>
           </div>
           <div>
-            <span style="color: var(--text-muted); display: block; font-size: 0.7rem; text-transform: uppercase;">Audited Codebase Repository</span>
+            <span style="color: var(--text-muted); display: block; font-size: 0.65rem; text-transform: uppercase;">Audited Codebase Repository</span>
             <span style="font-family: var(--font-mono); color: var(--text-primary);" id="certRepoUrl">--</span>
           </div>
           <div>
-            <span style="color: var(--text-muted); display: block; font-size: 0.7rem; text-transform: uppercase;">Auditing Engine / Model</span>
+            <span style="color: var(--text-muted); display: block; font-size: 0.65rem; text-transform: uppercase;">Auditing Engine / Model</span>
             <span style="color: var(--status-emerald);" id="certEngineModel">Kilikoro Neural Oracle + AST Engine</span>
           </div>
         </div>
       </div>
 
       <!-- Audit Metrics Table -->
-      <table class="cert-metrics-table" style="width: 100%; border-collapse: collapse; margin-bottom: 1.5rem;">
+      <table class="cert-metrics-table" style="width: 100%; border-collapse: collapse; margin-bottom: 0.85rem; font-size: 0.74rem;">
         <thead>
-          <tr>
-            <th>Audit Dimension</th>
-            <th>Standard Benchmark</th>
-            <th>Observed Result</th>
-            <th>Accreditation</th>
+          <tr style="border-bottom: 1px solid var(--border-subtle);">
+            <th style="padding: 0.35rem 0.5rem; text-align: left; color: var(--text-muted); font-size: 0.68rem;">Audit Dimension</th>
+            <th style="padding: 0.35rem 0.5rem; text-align: left; color: var(--text-muted); font-size: 0.68rem;">Standard Benchmark</th>
+            <th style="padding: 0.35rem 0.5rem; text-align: left; color: var(--text-muted); font-size: 0.68rem;">Observed Result</th>
+            <th style="padding: 0.35rem 0.5rem; text-align: right; color: var(--text-muted); font-size: 0.68rem;">Status</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Production Architecture Quality</td>
-            <td>&ge; 80% Clean Abstraction</td>
-            <td id="certMetricArch">96% Passed</td>
-            <td><span class="tag" style="color: var(--status-emerald);">Verified</span></td>
+          <tr style="border-bottom: 1px solid rgba(255,255,255,0.04);">
+            <td style="padding: 0.35rem 0.5rem;">Production Architecture Quality</td>
+            <td style="padding: 0.35rem 0.5rem; color: var(--text-muted);">&ge; 80% Clean Abstraction</td>
+            <td style="padding: 0.35rem 0.5rem; font-weight: 600;" id="certMetricArch">98% Passed</td>
+            <td style="padding: 0.35rem 0.5rem; text-align: right;"><span class="tag" style="color: var(--status-emerald); font-size: 0.68rem; padding: 0.1rem 0.4rem;">Verified</span></td>
+          </tr>
+          <tr style="border-bottom: 1px solid rgba(255,255,255,0.04);">
+            <td style="padding: 0.35rem 0.5rem;">Security & Secret Hygiene</td>
+            <td style="padding: 0.35rem 0.5rem; color: var(--text-muted);">Zero Exposed API Keys</td>
+            <td style="padding: 0.35rem 0.5rem; font-weight: 600;" id="certMetricSec">Clean Git History</td>
+            <td style="padding: 0.35rem 0.5rem; text-align: right;"><span class="tag" style="color: var(--status-emerald); font-size: 0.68rem; padding: 0.1rem 0.4rem;">Verified</span></td>
+          </tr>
+          <tr style="border-bottom: 1px solid rgba(255,255,255,0.04);">
+            <td style="padding: 0.35rem 0.5rem;">Error Handling & Resilience</td>
+            <td style="padding: 0.35rem 0.5rem; color: var(--text-muted);">Try/Catch & Guards</td>
+            <td style="padding: 0.35rem 0.5rem; font-weight: 600;" id="certMetricErr">Robust Guards</td>
+            <td style="padding: 0.35rem 0.5rem; text-align: right;"><span class="tag" style="color: var(--status-emerald); font-size: 0.68rem; padding: 0.1rem 0.4rem;">Verified</span></td>
+          </tr>
+          <tr style="border-bottom: 1px solid rgba(255,255,255,0.04);">
+            <td style="padding: 0.35rem 0.5rem;">Algorithmic Asymptotic Limit</td>
+            <td style="padding: 0.35rem 0.5rem; color: var(--text-muted);">O(N log N) Scalability</td>
+            <td style="padding: 0.35rem 0.5rem; font-weight: 600;" id="certMetricComp">O(N log N) Verified</td>
+            <td style="padding: 0.35rem 0.5rem; text-align: right;"><span class="tag" style="color: var(--status-emerald); font-size: 0.68rem; padding: 0.1rem 0.4rem;">Verified</span></td>
           </tr>
           <tr>
-            <td>Security & Secret Hygiene</td>
-            <td>Zero Exposed API Keys</td>
-            <td id="certMetricSec">Clean Git History</td>
-            <td><span class="tag" style="color: var(--status-emerald);">Verified</span></td>
-          </tr>
-          <tr>
-            <td>Error Handling & Resilience</td>
-            <td>Try/Catch & Boundary Guards</td>
-            <td id="certMetricErr">Robust Guards</td>
-            <td><span class="tag" style="color: var(--status-emerald);">Verified</span></td>
-          </tr>
-          <tr>
-            <td>Algorithmic Asymptotic Limit</td>
-            <td>O(N log N) Scalability</td>
-            <td id="certMetricComp">O(N log N) Verified</td>
-            <td><span class="tag" style="color: var(--status-emerald);">Verified</span></td>
-          </tr>
-          <tr>
-            <td>BANK Escrow Settlement Clearance</td>
-            <td>Automated Direct Release</td>
-            <td>Cleared for Instant Payout</td>
-            <td><span class="tag" style="color: var(--status-emerald);">Active</span></td>
+            <td style="padding: 0.35rem 0.5rem;">BANK Escrow Clearance</td>
+            <td style="padding: 0.35rem 0.5rem; color: var(--text-muted);">Automated Direct Release</td>
+            <td style="padding: 0.35rem 0.5rem; font-weight: 600;">Cleared for Payout</td>
+            <td style="padding: 0.35rem 0.5rem; text-align: right;"><span class="tag" style="color: var(--status-emerald); font-size: 0.68rem; padding: 0.1rem 0.4rem;">Active</span></td>
           </tr>
         </tbody>
       </table>
 
       <!-- Signatures & Verification Hash -->
-      <div class="cert-signatures">
+      <div class="cert-signatures" style="margin-top: 0.65rem; padding-top: 0.65rem; border-top: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: flex-end;">
         <div class="cert-sig-block">
-          <div class="cert-sig-line"></div>
-          <div class="cert-sig-name">Engr. O. Babatunde, FBCS</div>
-          <div class="cert-sig-title">Lead Verifier, Kilikoro Attestation Node</div>
+          <div style="font-style: italic; font-family: 'Brush Script MT', cursive, serif; font-size: 1.1rem; color: var(--accent-terracotta);">Wali Medugu</div>
+          <div style="font-weight: 600; font-size: 0.72rem; color: var(--text-primary);">Lead Verifier, Kilikoro Attestation Node</div>
+          <div style="font-size: 0.65rem; color: var(--text-muted);">Accreditation Council</div>
         </div>
-        <div class="cert-sig-block">
-          <div style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-muted); margin-bottom: 0.35rem;" id="certSigHash">
-            SHA256: e82b7190ca44bc0891d4e0821bfe4
+        <div class="cert-sig-block" style="text-align: right;">
+          <div style="font-family: var(--font-mono); font-size: 0.62rem; color: var(--accent-gold);" id="certSigHash">
+            SHA256: 4fabcbfb367170c5e954729b...
           </div>
-          <div class="cert-sig-line"></div>
-          <div class="cert-sig-name">Kilikoro Autonomous Oracle</div>
-          <div class="cert-sig-title">Cryptographic Escrow Settlement Node</div>
+          <div style="font-weight: 600; font-size: 0.72rem; color: var(--status-emerald);">✓ Immutable Proof of Competence</div>
+          <div style="font-size: 0.65rem; color: var(--text-muted);">Kilikoro Autonomous Oracle</div>
         </div>
       </div>
 
       <!-- GitHub README Status Badge & Verification Link Card -->
-      <div style="background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 1rem 1.25rem; margin-top: 1.5rem;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.65rem; flex-wrap: wrap; gap: 0.5rem;">
-          <div style="display: flex; align-items: center; gap: 0.5rem;">
-            <span style="font-size: 0.78rem; font-weight: 600; text-transform: uppercase; color: var(--text-primary); letter-spacing: 0.05em;">GitHub README Status Badge</span>
-            <img id="certBadgeImg" src="/api/badge?title=Kilikoro" alt="Kilikoro Verified Badge" style="height: 20px; vertical-align: middle; border-radius: 3px;">
+      <div style="background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 0.65rem 0.85rem; margin-top: 0.85rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem; flex-wrap: wrap; gap: 0.35rem;">
+          <div style="display: flex; align-items: center; gap: 0.4rem;">
+            <span style="font-size: 0.72rem; font-weight: 600; text-transform: uppercase; color: var(--text-primary); letter-spacing: 0.04em;">GitHub README Status Badge</span>
+            <img id="certBadgeImg" src="/api/badge?title=Kilikoro" alt="Kilikoro Verified Badge" style="height: 18px; vertical-align: middle; border-radius: 3px;">
           </div>
-          <span style="font-size: 0.72rem; color: var(--status-emerald);">Live Dynamic SVG</span>
+          <span style="font-size: 0.68rem; color: var(--status-emerald);">Dynamic SVG</span>
         </div>
-        <div style="display: flex; gap: 0.5rem; align-items: center;">
-          <input type="text" id="certBadgeMarkdown" readonly style="flex: 1; background: var(--bg-primary); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 0.5rem 0.75rem; color: var(--text-secondary); font-family: var(--font-mono); font-size: 0.75rem;" value="[![Kilikoro Verified Competence](https://kilikoro.vercel.app/api/badge?title=Kilikoro)](https://kilikoro.vercel.app/)">
-          <button class="btn btn-secondary" onclick="app.copyReadmeBadge()" style="font-size: 0.78rem; white-space: nowrap; padding: 0.5rem 0.85rem;">
+        <div style="display: flex; gap: 0.4rem; align-items: center;">
+          <input type="text" id="certBadgeMarkdown" readonly style="flex: 1; background: var(--bg-primary); border: 1px solid var(--border-subtle); border-radius: 4px; padding: 0.35rem 0.55rem; color: var(--text-secondary); font-family: var(--font-mono); font-size: 0.7rem;" value="[![Kilikoro Verified Competence](https://kilikoro.vercel.app/api/badge?title=Kilikoro)](https://kilikoro.vercel.app/)">
+          <button class="btn btn-secondary" onclick="app.copyReadmeBadge()" style="font-size: 0.7rem; white-space: nowrap; padding: 0.35rem 0.65rem;">
             Copy Markdown
           </button>
-        </div>
-        <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 0.4rem;">
-          Paste this snippet into your repository's <code>README.md</code> to display an immutable verification seal linking directly to this certificate.
         </div>
       </div>
 
@@ -1666,9 +1662,9 @@ threshold = 20</pre>
   <!-- MODAL: WELCOME PITCH & TEAM PRESENTATION (FIRST VISIT POPUP)              -->
   <!-- ========================================================================= -->
   <div class="modal-overlay" id="welcomePitchModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.78); z-index: 1100; align-items: center; justify-content: center; padding: 1.25rem;">
-    <div style="background: var(--bg-primary); border: 1.5px solid var(--border-medium); border-radius: 14px; width: 100%; max-width: 540px; overflow: hidden; box-shadow: var(--shadow-lg); animation: fadeUp 250ms ease;">
+    <div style="background: var(--bg-primary); border: 1.5px solid var(--border-medium); border-radius: 14px; width: 100%; max-width: 440px; overflow: hidden; box-shadow: var(--shadow-lg); animation: fadeUp 250ms ease;">
       <!-- Hero Display Image -->
-      <div style="width: 100%; height: 210px; overflow: hidden; background: #2A1F1D; position: relative;">
+      <div style="width: 100%; height: 140px; overflow: hidden; background: #2A1F1D; position: relative;">
         <img src="assets/welcome-hero.png" alt="Kilikoro Autonomous Protocol" style="width: 100%; height: 100%; object-fit: cover;">
         <div style="position: absolute; inset: 0; background: linear-gradient(180deg, transparent 40%, rgba(20,17,15,0.85) 100%);"></div>
         <div style="position: absolute; bottom: 0.85rem; left: 1.25rem; right: 1.25rem; display: flex; justify-content: space-between; align-items: flex-end;">
@@ -1685,20 +1681,20 @@ threshold = 20</pre>
       </div>
 
       <!-- Pitch Statements -->
-      <div style="padding: 1.5rem;">
+      <div style="padding: 1rem 1.15rem;">
         <!-- Two Liner: Problem -->
-        <div style="margin-bottom: 1.25rem; background: var(--bg-secondary); border-left: 3px solid var(--status-ruby); border-radius: 0 8px 8px 0; padding: 0.85rem 1rem;">
+        <div style="margin-bottom: 0.75rem; background: var(--bg-secondary); border-left: 3px solid var(--status-ruby); border-radius: 0 6px 6px 0; padding: 0.6rem 0.8rem;">
           <div style="font-size: 0.72rem; text-transform: uppercase; font-weight: 700; color: var(--status-ruby); letter-spacing: 0.05em; margin-bottom: 0.25rem;">
             The Problem
           </div>
-          <p style="font-size: 0.86rem; color: var(--text-primary); line-height: 1.55; margin: 0;">
+          <p style="font-size: 0.78rem; color: var(--text-primary); line-height: 1.45; margin: 0;">
             Hiring African software engineers is plagued by resume fraud, fake portfolio claims, and unvetted code.<br>
             At the same time, verified student builders struggle to receive trust and international cross-border milestone payments without predatory escrow friction.
           </p>
         </div>
 
         <!-- Two Liner: Solution -->
-        <div style="margin-bottom: 1.5rem; background: var(--bg-secondary); border-left: 3px solid var(--status-emerald); border-radius: 0 8px 8px 0; padding: 0.85rem 1rem;">
+        <div style="margin-bottom: 0.85rem; background: var(--bg-secondary); border-left: 3px solid var(--status-emerald); border-radius: 0 6px 6px 0; padding: 0.6rem 0.8rem;">
           <div style="font-size: 0.72rem; text-transform: uppercase; font-weight: 700; color: var(--status-emerald); letter-spacing: 0.05em; margin-bottom: 0.25rem;">
             The Solution
           </div>
