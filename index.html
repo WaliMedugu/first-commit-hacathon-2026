@@ -90,6 +90,18 @@
         </div>
 
         <div class="header-actions">
+          <!-- Interactive Judge Demo Switcher -->
+          <div class="judge-demo-selector" style="display: inline-flex; align-items: center; gap: 0.35rem; background: var(--bg-secondary); border: 1px solid var(--border-medium); border-radius: 6px; padding: 0.25rem 0.6rem;">
+            <span style="font-size: 0.72rem; color: var(--accent-terracotta); font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;">Demo User:</span>
+            <select id="judgeAccountSelector" onchange="app.switchDemoPersona(this.value)" style="background: transparent; border: none; color: var(--text-primary); font-size: 0.78rem; cursor: pointer; outline: none;">
+              <option value="wali-medugu-solo-builder" selected>Wali Medugu (Lead Solo Builder - $150)</option>
+              <option value="amina-bello-ai-builder">Amina Bello (Student AI Builder - $420)</option>
+              <option value="chidi-okonkwo-systems">Chidi Okonkwo (Student Systems - $850)</option>
+              <option value="starlight-labs-sponsor">Starlight FinTech Labs (Sponsor Org - $25,000)</option>
+              <option value="zainab-alhassan-ui">Zainab Al-Hassan (Frontend Builder - $310)</option>
+              <option value="david-mensah-sec">David Mensah (Security Specialist - $600)</option>
+            </select>
+          </div>
           <button class="btn btn-secondary" id="btnRoleSwitcher" onclick="app.toggleRole()" style="font-size: 0.78rem; display: inline-flex; align-items: center; gap: 0.4rem;" title="Switch between Personal and Organization views">
             <span class="status-dot" style="background: var(--accent-terracotta);"></span>
             <span id="headerRoleLabel">Role: Personal</span>
@@ -649,6 +661,13 @@ threshold = 20</pre>
         <!-- VIEW 4: BANK WALLET & VIRTUAL CARDS                                  -->
         <!-- ===================================================================== -->
         <section class="app-view" id="view-wallet">
+          <!-- Testnet Sandbox Disclaimer Banner (Google Safe Browsing & Judge Clarity) -->
+          <div class="testnet-sandbox-banner" style="background: rgba(217, 119, 87, 0.08); border: 1px dashed var(--accent-terracotta); border-radius: 8px; padding: 0.65rem 1rem; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.65rem;">
+            <span style="font-size: 1.1rem;">🧪</span>
+            <div style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.4;">
+              <b style="color: var(--accent-terracotta);">DEVELOPER TESTNET SIMULATOR:</b> This interactive banking vault demonstrates programmatic milestone escrow settlements for the <b>First Commit Hackathon 2026</b>. All balances, card numbers, and virtual settlements are simulated sandbox rails.
+            </div>
+          </div>
           <div class="wallet-grid">
 
             <!-- Left: BANK Liquid Balance Pocket Card & Transactions -->

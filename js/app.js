@@ -2788,6 +2788,26 @@ function cacheResolver(entries, threshold) {
     }
   }
 
+  async switchDemoPersona(personaId) {
+    try {
+      const profiles = await this.db.getProfiles();
+      const persona = profiles.find(p => p.id === personaId || p.email === personaId);
+      if (persona) {
+        await this.db.saveProfile(persona);
+        this.applyProfile(persona);
+        this.renderHomeDashboard();
+        this.renderContracts();
+        this.renderLiquidBalance();
+        await this.renderTransactions();
+        const roleStr = (persona.role || "personal").toUpperCase();
+        const balStr = (persona.balanceUsdc || 0).toFixed(2);
+        this.showToast("Demo Persona Activated", `Switched to ${persona.name} (${roleStr}) • Balance: ${balStr} USDC`, "success", 4000);
+      }
+    } catch (e) {
+      console.error("Failed to switch demo persona:", e);
+    }
+  }
+
   async loadLiveContracts() {
     const live = await this.db.getContracts();
     this.contracts = Array.isArray(live) ? live : [];
