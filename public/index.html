@@ -1459,18 +1459,22 @@ threshold = 20</pre>
           </span>
           <span style="font-size: 0.78rem; color: var(--text-muted);" id="certTimestamp">Issued: 2026-09-29</span>
         </div>
-        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+        <div class="cert-modal-actions" style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+          <button class="btn btn-secondary" onclick="app.exportCertificatePNG()" style="font-size: 0.8rem; background: rgba(217, 119, 87, 0.15); border-color: rgba(217, 119, 87, 0.4); color: var(--accent-terracotta);">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+            Export PNG
+          </button>
+          <button class="btn btn-secondary" onclick="app.exportCertificatePDF()" style="font-size: 0.8rem; background: rgba(16, 185, 129, 0.15); border-color: rgba(16, 185, 129, 0.4); color: #34d399;">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+            Export PDF
+          </button>
           <button class="btn btn-secondary" onclick="app.copyCertPublicUrl()" style="font-size: 0.8rem;">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
-            Copy Public Link
+            Copy Link
           </button>
           <button class="btn btn-secondary" onclick="app.addCertToLinkedIn()" style="font-size: 0.8rem; background: rgba(10, 102, 194, 0.15); border-color: rgba(10, 102, 194, 0.4); color: #70b5f9;">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.6a1.65 1.65 0 0 0-1.66 1.66 1.66 1.66 0 0 0 1.66 1.65 1.66 1.66 0 0 0 1.66-1.65A1.66 1.66 0 0 0 7.83 6.6z"/></svg>
-            Add to LinkedIn
-          </button>
-          <button class="btn btn-secondary" onclick="window.print()" style="font-size: 0.8rem;">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
-            Print / PDF
+            LinkedIn
           </button>
           <button class="btn btn-secondary" onclick="app.closeCertificateModal()" style="font-size: 0.8rem;">✕ Close</button>
         </div>

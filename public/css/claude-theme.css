@@ -2018,21 +2018,36 @@ input::placeholder, textarea::placeholder {
 
 /* Print Certificate Rules */
 @media print {
-  body * {
-    visibility: hidden;
+  @page {
+    size: letter landscape;
+    margin: 1cm;
   }
-  .certificate-modal-sheet, .certificate-modal-sheet * {
-    visibility: visible;
+  body * {
+    visibility: hidden !important;
+  }
+  #certificateModal, #certificateModal * {
+    visibility: visible !important;
+  }
+  #certificateModal {
+    position: absolute !important;
+    inset: 0 !important;
+    display: block !important;
+    background: transparent !important;
+    padding: 0 !important;
   }
   .certificate-modal-sheet {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
+    position: relative !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
     box-shadow: none !important;
-    background: #ffffff !important;
-    color: #000000 !important;
-    border: 2px solid #000000 !important;
+    background: #191615 !important;
+    color: #f7f4ed !important;
+    border: 2px solid #d97757 !important;
+    page-break-inside: avoid !important;
+  }
+  .cert-modal-actions, #certPublicVerificationBanner button {
+    display: none !important;
   }
 }
 
